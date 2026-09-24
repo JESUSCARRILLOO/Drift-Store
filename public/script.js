@@ -12,7 +12,7 @@ PRODUCTS.forEach(p => {
   const card = document.createElement("div");
   card.className = "card";
   card.innerHTML = `
-    <div class="card-swatch" style="background:${p.color}"></div>
+    <img class="card-swatch" src="${p.image}" alt="${p.name}" />
     <div class="card-body">
       <h4>${p.name}</h4>
       <div class="price">$${p.price.toFixed(2)}</div>
