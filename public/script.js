@@ -14,6 +14,7 @@ PRODUCTS.forEach(p => {
   card.innerHTML = `
     <img class="card-swatch" src="${p.image}" alt="${p.name}" />
     <div class="card-body">
+      <span class="brand-tag">${p.brand}</span>
       <h4>${p.name}</h4>
       <div class="price">$${p.price.toFixed(2)}</div>
       <button data-id="${p.id}">Añadir al carrito</button>
