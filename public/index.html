@@ -17,7 +17,11 @@
     <a href="#marcas">Marcas</a>
     <a href="#beneficios">Ofertas</a>
   </nav>
-  <button id="cart-toggle" class="cart-btn">🛒 <span id="cart-count">0</span></button>
+  <div class="topbar-actions">
+    <input id="search-input" type="text" class="search-input" placeholder="Buscar..." />
+    <button id="account-btn" class="cart-btn">👤 <span id="account-label">Cuenta</span></button>
+    <button id="cart-toggle" class="cart-btn">🛒 <span id="cart-count">0</span></button>
+  </div>
 </header>
 
 <section class="hero">
@@ -45,18 +49,9 @@
   <div class="benefit"><span>💵</span><h5>Paga en efectivo</h5><p>Disponible en tiendas de conveniencia</p></div>
 </section>
 
-<section id="destacados" class="testimonials">
-  <h2>Testimonios</h2>
-  <div class="grid">
-    <blockquote>“La calidad de los materiales es impecable. Cómodos para el día a día y con un diseño urbano que no se puede pasar por alto.”— Marcus V.</blockquote>
-    <blockquote>“Los diseños son modernos y juveniles. La mejor elección para el estilo de vida activo y urbano que busco.”— Sofía R.</blockquote>
-    <blockquote>“Catálogo completo y experiencia de compra fluida. Los productos destacados son realmente de alta calidad.”— Luis G.</blockquote>
-  </div>
-</section>
-
 <footer class="footer">
   <div class="logo">DRIFT</div>
-  <p>Tu ciudad, España</p>
+  <p>Tijuana, Baja California</p>
 </footer>
 
 <!-- Panel del carrito -->
@@ -74,7 +69,31 @@
 </aside>
 <div id="cart-overlay" class="cart-overlay"></div>
 
+<!-- Modal de cuenta -->
+<div id="auth-modal" class="auth-modal">
+  <button id="auth-close">✕</button>
+  <div class="auth-tabs">
+    <button class="tab-btn active" data-tab="login">Iniciar sesión</button>
+    <button class="tab-btn" data-tab="register">Registrarse</button>
+  </div>
+  <form id="login-form" class="auth-form">
+    <input type="email" id="login-email" placeholder="Correo electrónico" required>
+    <input type="password" id="login-password" placeholder="Contraseña" required>
+    <button type="submit" class="btn-primary">Entrar</button>
+    <p id="login-msg" class="auth-msg"></p>
+  </form>
+  <form id="register-form" class="auth-form hidden">
+    <input type="text" id="register-name" placeholder="Nombre" required>
+    <input type="email" id="register-email" placeholder="Correo electrónico" required>
+    <input type="password" id="register-password" placeholder="Contraseña" required>
+    <button type="submit" class="btn-primary">Crear cuenta</button>
+    <p id="register-msg" class="auth-msg"></p>
+  </form>
+</div>
+<div id="auth-overlay" class="cart-overlay"></div>
+
 <script src="products.js"></script>
 <script src="script.js"></script>
+<script src="auth.js"></script>
 </body>
 </html>
