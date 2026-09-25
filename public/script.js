@@ -4,23 +4,36 @@ const cartCountEl = document.getElementById("cart-count");
 const cartTotalEl = document.getElementById("cart-total");
 const checkoutBtn = document.getElementById("checkout-btn");
 const checkoutMsg = document.getElementById("checkout-msg");
+const searchInput = document.getElementById("search-input");
 
 let cart = {}; // { productId: qty }
 
-// Renderizar catálogo
-PRODUCTS.forEach(p => {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <img class="card-swatch" src="${p.image}" alt="${p.name}" />
-    <div class="card-body">
-      <span class="brand-tag">${p.brand}</span>
-      <h4>${p.name}</h4>
-      <div class="price">$${p.price.toFixed(2)}</div>
-      <button data-id="${p.id}">Añadir al carrito</button>
-    </div>
-  `;
-  grid.appendChild(card);
+function renderProducts(list) {
+  grid.innerHTML = "";
+  list.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img class="card-swatch" src="${p.image}" alt="${p.name}" />
+      <div class="card-body">
+        <span class="brand-tag">${p.brand}</span>
+        <h4>${p.name}</h4>
+        <div class="price">$${p.price.toFixed(2)}</div>
+        <button data-id="${p.id}">Añadir al carrito</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+renderProducts(PRODUCTS);
+
+searchInput.addEventListener("input", () => {
+  const q = searchInput.value.trim().toLowerCase();
+  const filtered = PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q)
+  );
+  renderProducts(filtered);
 });
 
 grid.addEventListener("click", e => {
@@ -99,7 +112,7 @@ checkoutBtn.addEventListener("click", async () => {
     });
     const data = await res.json();
     if (data.url) {
-      window.location.href = data.url; // Redirige a Stripe Checkout
+      window.location.href = data.url;
     } else {
       checkoutMsg.textContent = "Error al iniciar el pago. Intenta de nuevo.";
       checkoutBtn.disabled = false;
