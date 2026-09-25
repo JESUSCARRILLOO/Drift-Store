@@ -11,11 +11,11 @@
 <header class="topbar">
   <div class="logo">DRIFT</div>
   <nav>
-    <a href="#colecciones">Colección</a>
-    <a href="#colecciones">Hombre</a>
-    <a href="#colecciones">Mujer</a>
+    <a href="#colecciones" data-filter-type="all">Colección</a>
+    <a href="#colecciones" data-filter-type="category" data-filter-value="hombre">Hombre</a>
+    <a href="#colecciones" data-filter-type="category" data-filter-value="mujer">Mujer</a>
     <a href="#marcas">Marcas</a>
-    <a href="#beneficios">Ofertas</a>
+    <a href="#colecciones" data-filter-type="sale">Ofertas</a>
   </nav>
   <div class="topbar-actions">
     <input id="search-input" type="text" class="search-input" placeholder="Buscar..." />
@@ -33,12 +33,18 @@
 <section id="marcas" class="brands">
   <h2>Marcas destacadas</h2>
   <div class="brands-row">
-    <span>NIKE</span><span>ADIDAS</span><span>PUMA</span><span>ASICS</span><span>VANS</span><span>CONVERSE</span>
+    <span data-filter-type="brand" data-filter-value="Nike">NIKE</span>
+    <span data-filter-type="brand" data-filter-value="adidas">ADIDAS</span>
+    <span data-filter-type="brand" data-filter-value="Puma">PUMA</span>
+    <span data-filter-type="brand" data-filter-value="Asics">ASICS</span>
+    <span data-filter-type="brand" data-filter-value="Vans">VANS</span>
+    <span data-filter-type="brand" data-filter-value="Converse">CONVERSE</span>
   </div>
 </section>
 
 <section id="colecciones" class="collection">
   <h2>Colección</h2>
+  <p id="filter-info" class="filter-info hidden"></p>
   <div id="product-grid" class="grid"></div>
 </section>
 
