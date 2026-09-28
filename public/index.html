@@ -53,4 +53,57 @@
   <div class="benefit"><span>🚚</span><h5>Envío gratis</h5><p>A todo el país en compras mayores a $999</p></div>
   <div class="benefit"><span>↩️</span><h5>30 días de devolución</h5><p>Cambios y devoluciones sin complicaciones</p></div>
   <div class="benefit"><span>💳</span><h5>Hasta 12 MSI</h5><p>Con tarjetas de crédito participantes</p></div>
-  <div
+  <div class="benefit"><span>💵</span><h5>Paga en efectivo</h5><p>Disponible en tiendas de conveniencia</p></div>
+</section>
+
+<footer class="footer">
+  <div class="logo">DRIFT</div>
+  <p>Tijuana, Baja California</p>
+</footer>
+
+<aside id="cart-panel" class="cart-panel">
+  <div class="cart-header">
+    <h3>Tu carrito</h3>
+    <div class="cart-header-actions">
+      <button id="cart-clear" title="Vaciar carrito">🗑</button>
+      <button id="cart-close">✕</button>
+    </div>
+  </div>
+  <div id="cart-items"></div>
+  <div class="cart-footer">
+    <div class="cart-total">Total: <span id="cart-total">$0.00</span></div>
+    <button id="checkout-btn" class="btn-primary" disabled>Pagar con Stripe</button>
+    <p id="checkout-msg" class="checkout-msg"></p>
+  </div>
+</aside>
+<div id="cart-overlay" class="cart-overlay"></div>
+
+<div id="auth-modal" class="auth-modal">
+  <button id="auth-close">✕</button>
+  <div class="auth-tabs">
+    <button class="tab-btn active" data-tab="login">Iniciar sesión</button>
+    <button class="tab-btn" data-tab="register">Registrarse</button>
+  </div>
+  <form id="login-form" class="auth-form">
+    <input type="email" id="login-email" placeholder="Correo electrónico" required>
+    <input type="password" id="login-password" placeholder="Contraseña" required>
+    <button type="submit" class="btn-primary">Entrar</button>
+    <p id="login-msg" class="auth-msg"></p>
+  </form>
+  <form id="register-form" class="auth-form hidden">
+    <input type="text" id="register-name" placeholder="Nombre" required>
+    <input type="email" id="register-email" placeholder="Correo electrónico" required>
+    <input type="password" id="register-password" placeholder="Contraseña" required>
+    <button type="submit" class="btn-primary">Crear cuenta</button>
+    <p id="register-msg" class="auth-msg"></p>
+  </form>
+</div>
+<div id="auth-overlay" class="cart-overlay"></div>
+
+<script src="products.js"></script>
+<script src="cart-store.js"></script>
+<script src="cart-ui.js"></script>
+<script src="script.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>
