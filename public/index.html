@@ -16,6 +16,7 @@
     <a href="#colecciones" data-filter-type="category" data-filter-value="mujer">Mujer</a>
     <a href="#marcas">Marcas</a>
     <a href="#colecciones" data-filter-type="sale">Ofertas</a>
+    <a href="#colecciones" data-filter-type="favorites">❤ Favoritos</a>
   </nav>
   <div class="topbar-actions">
     <input id="search-input" type="text" class="search-input" placeholder="Buscar..." />
@@ -26,7 +27,7 @@
 
 <section class="hero">
   <h1>DRIFT</h1>
-  <p>Calzado contemporáneo diseñado para quienes no temen destacar en la ciudad.</p>
+  <p>Definición de estilo urbano. Calzado contemporáneo diseñado para quienes no temen destacar en la ciudad.</p>
   <a href="#colecciones" class="btn-primary">Comprar ahora</a>
 </section>
 
@@ -60,11 +61,13 @@
   <p>Tijuana, Baja California</p>
 </footer>
 
-<!-- Panel del carrito -->
 <aside id="cart-panel" class="cart-panel">
   <div class="cart-header">
     <h3>Tu carrito</h3>
-    <button id="cart-close">✕</button>
+    <div class="cart-header-actions">
+      <button id="cart-clear" title="Vaciar carrito">🗑</button>
+      <button id="cart-close">✕</button>
+    </div>
   </div>
   <div id="cart-items"></div>
   <div class="cart-footer">
@@ -75,7 +78,6 @@
 </aside>
 <div id="cart-overlay" class="cart-overlay"></div>
 
-<!-- Modal de cuenta -->
 <div id="auth-modal" class="auth-modal">
   <button id="auth-close">✕</button>
   <div class="auth-tabs">
@@ -99,6 +101,8 @@
 <div id="auth-overlay" class="cart-overlay"></div>
 
 <script src="products.js"></script>
+<script src="cart-store.js"></script>
+<script src="cart-ui.js"></script>
 <script src="script.js"></script>
 <script src="auth.js"></script>
 </body>
