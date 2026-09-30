@@ -1,7 +1,14 @@
 const PRODUCTS = [
-  { id: 1, name: "Nike Court Vision Low",  brand: "Nike",     category: "hombre", price: 175.00, image: "images/Nike-Dunk-Low-Retro.jpg",
-    description: "Un clásico urbano de línea baja, ideal para uso diario. Combina comodidad y estilo streetwear.",
-    sizes: [24,25,26,27,28,29,30] },
+{ id: 1, name: "Nike Dunk Low Retro Hombre",  brand: "Nike",     category: "hombre", price: 175.00, image: "images/Nike-Dunk-Low-Retro-Hombre.jpg",
+  images: [
+    "images/Nike-Dunk-Low-Retro-Hombre.jpg",
+    "images/Nike-Dunk-Low-Retro-Hombre-1.jpg",
+    "images/Nike-Dunk-Low-Retro-Hombre-2.jpg",
+    "images/Nike-Dunk-Low-Retro-Hombre-3.jpg",
+    "images/Nike-Dunk-Low-Retro-Hombre-4.jpg"
+  ],
+  description: "Un clásico urbano de línea baja, ideal para uso diario. Combina comodidad y estilo streetwear.",
+  sizes: [24,25,26,27,28,29,30] },
   { id: 2, name: "Nike Air Max Fire",      brand: "Nike",     category: "hombre", price: 190.00, onSale: true, originalPrice: 220.00, image: "images/Nike-Air-Max-Fire.jpg",
     description: "Amortiguación visible y diseño llamativo para quienes buscan destacar en la calle.",
     sizes: [24,25,26,27,28,29,30] },
