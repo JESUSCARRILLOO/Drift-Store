@@ -2,7 +2,7 @@ const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 const PRODUCTS = [
-  { id: 1, name: "Nike Court Vision Low",  price: 175.00 },
+{ id: 1, name: "Nike Dunk Low Retro Hombre",  price: 175.00 },
   { id: 2, name: "Nike Air Max Fire",      price: 190.00 },
   { id: 3, name: "Asics Gel 1130",         price: 160.00 },
   { id: 4, name: "Vans Upland",            price: 130.00 },
