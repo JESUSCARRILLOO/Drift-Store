@@ -106,3 +106,26 @@ grid.addEventListener("click", e => {
 document.getElementById("fav-filter-btn").addEventListener("click", () => {
   applyFilter("favorites");
 });
+const track = document.getElementById("new-arrivals-track");
+const newArrivals = PRODUCTS.slice(0, 6);
+
+newArrivals.forEach(p => {
+  const item = document.createElement("a");
+  item.href = `product.html?id=${p.id}`;
+  item.target = "_blank";
+  item.className = "carousel-item";
+  item.innerHTML = `
+    <img src="${p.image}" alt="${p.name}" />
+    <span class="brand-tag">${p.brand}</span>
+    <h5>${p.name}</h5>
+    <div class="price-row">${priceHTML(p)}</div>
+  `;
+  track.appendChild(item);
+});
+
+document.getElementById("carousel-prev").addEventListener("click", () => {
+  track.scrollBy({ left: -260, behavior: "smooth" });
+});
+document.getElementById("carousel-next").addEventListener("click", () => {
+  track.scrollBy({ left: 260, behavior: "smooth" });
+});
