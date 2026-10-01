@@ -48,8 +48,9 @@ nav a:hover { color: var(--accent); }
 .banner-img {
   display: block;
   width: 100%;
-  height: 480px;
+  height: 360px;
   object-fit: cover;
+  object-position: center 35%;
 }
 .hero-cta {
   position: absolute;
@@ -72,16 +73,17 @@ nav a:hover { color: var(--accent); }
 .hero-cta:hover { transform: translateX(-50%) translateY(-3px); }
 
 .slogan-block {
-  background: var(--accent);
-  padding: 60px 6%;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 50px 6%;
   text-align: center;
 }
 .slogan-block p {
   max-width: 700px;
   margin: 0 auto;
-  color: #fff;
+  color: var(--accent);
   font-style: italic;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   line-height: 1.5;
   font-weight: 600;
 }
