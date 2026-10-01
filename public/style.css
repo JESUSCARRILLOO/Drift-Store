@@ -75,19 +75,27 @@ nav a:hover { color: var(--accent); }
 .slogan-block {
   background: var(--panel);
   border-bottom: 1px solid var(--border);
-  padding: 50px 6%;
+  padding: 28px 6%;
   text-align: center;
 }
 .slogan-block p {
-  max-width: 700px;
+  max-width: 600px;
   margin: 0 auto;
-  color: var(--accent);
-  font-style: italic;
-  font-size: 1.5rem;
+  color: var(--muted);
+  font-size: 0.95rem;
   line-height: 1.5;
-  font-weight: 600;
+  font-weight: 400;
+  position: relative;
+  padding-top: 14px;
 }
-
+.slogan-block p::before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 2px;
+  background: var(--accent);
+  margin: 0 auto 14px;
+}
 h2 { text-align: center; font-size: 2rem; letter-spacing: 2px; margin: 0 0 40px; }
 .collection { padding: 70px 6%; }
 
