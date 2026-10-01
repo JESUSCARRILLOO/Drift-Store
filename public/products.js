@@ -11,7 +11,7 @@ const PRODUCTS = [
     description: "Un clásico urbano de línea baja, ideal para uso diario. Combina comodidad y estilo streetwear.",
     sizes: [24,25,26,27,28,29,30] },
 
-  { id: 2, name: "Nike Air Max Fire", brand: "Nike", category: "hombre", price: 190.00, onSale: true, originalPrice: 220.00,
+  { id: 2, name: "Nike Air Max Fire Hombre", brand: "Nike", category: "hombre", price: 190.00, onSale: true, originalPrice: 220.00,
     image: "images/Nike-Air-Max-Fire-Hombre.jpg",
     images: [
       "images/Nike-Air-Max-Fire-Hombre.jpg",
@@ -25,7 +25,7 @@ const PRODUCTS = [
     description: "Amortiguación visible y diseño llamativo para quienes buscan destacar en la calle.",
     sizes: [24,25,26,27,28,29,30] },
 
-  { id: 3, name: "Asics Gel 1130", brand: "Asics", category: "unisex", price: 160.00,
+  { id: 3, name: "Asics Gel 1130 Mujer", brand: "Asics", category: "mujer", price: 160.00,
     image: "images/Asics-Gel-1130-Mujer.jpg",
     images: [
       "images/Asics-Gel-1130-Mujer.jpg",
@@ -38,7 +38,7 @@ const PRODUCTS = [
     description: "Silueta retro running, ligera y versátil para el día a día urbano.",
     sizes: [23,24,25,26,27,28,29] },
 
-  { id: 4, name: "Vans Upland", brand: "Vans", category: "mujer", price: 130.00,
+  { id: 4, name: "Vans Upland Mujer", brand: "Vans", category: "mujer", price: 130.00,
     image: "images/Vans-Upland-Mujer.jpg",
     images: [
       "images/Vans-Upland-Mujer.jpg",
@@ -50,7 +50,7 @@ const PRODUCTS = [
     description: "Estilo skate clásico con un toque moderno, cómodo para caminar toda la ciudad.",
     sizes: [22,23,24,25,26,27] },
 
-  { id: 5, name: "Puma Suede", brand: "Puma", category: "mujer", price: 110.00, onSale: true, originalPrice: 140.00,
+  { id: 5, name: "Puma Suede Classic Mujer", brand: "Puma", category: "mujer", price: 110.00, onSale: true, originalPrice: 140.00,
     image: "images/Puma-Suede-Classic-Mujer.jpg",
     images: [
       "images/Puma-Suede-Classic-Mujer.jpg",
@@ -62,7 +62,7 @@ const PRODUCTS = [
     description: "El icónico modelo de gamuza, atemporal y fácil de combinar con cualquier outfit.",
     sizes: [22,23,24,25,26,27] },
 
-  { id: 6, name: "Converse Chuck Taylor", brand: "Converse", category: "mujer", price: 85.00,
+  { id: 6, name: "Converse Chuck Taylor All Star Hi Mujer", brand: "Converse", category: "mujer", price: 85.00,
     image: "images/Converse-Chuck-Taylor-All-Star-Hi-Mujer.jpg",
     images: [
       "images/Converse-Chuck-Taylor-All-Star-Hi-Mujer.jpg",
@@ -75,7 +75,7 @@ const PRODUCTS = [
     description: "El sneaker más clásico de todos los tiempos, sencillo y versátil.",
     sizes: [22,23,24,25,26,27] },
 
-  { id: 7, name: "Tenis adidas Superstar", brand: "adidas", category: "hombre", price: 95.00,
+  { id: 7, name: "Adidas Superstar Hombre", brand: "adidas", category: "hombre", price: 95.00,
     image: "images/Adidas-Superstar-Hombre.jpg",
     images: [
       "images/Adidas-Superstar-Hombre.jpg",
@@ -89,7 +89,7 @@ const PRODUCTS = [
     description: "La icónica punta de concha, un básico infalible del streetwear.",
     sizes: [24,25,26,27,28,29,30] },
 
-  { id: 8, name: "Nike Air Force One", brand: "Nike", category: "unisex", price: 145.00, onSale: true, originalPrice: 175.00,
+  { id: 8, name: "Nike Air Force One Hombre", brand: "Nike", category: "hombre", price: 145.00, onSale: true, originalPrice: 175.00,
     image: "images/Nike-Air-Force-one.jpg",
     images: [
       "images/Nike-Air-Force-one.jpg",
@@ -103,7 +103,7 @@ const PRODUCTS = [
     description: "El modelo blanco por excelencia, atemporal y combinable con cualquier outfit urbano.",
     sizes: [23,24,25,26,27,28,29] },
 
-  { id: 9, name: "Vans Old Skool", brand: "Vans", category: "hombre", price: 120.00,
+  { id: 9, name: "Vans Old Skool Hombre", brand: "Vans", category: "hombre", price: 120.00,
     image: "images/Vans-Old-Skool-Hombre.jpg",
     images: [
       "images/Vans-Old-Skool-Hombre.jpg",
