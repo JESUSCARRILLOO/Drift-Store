@@ -73,24 +73,24 @@ nav a:hover { color: var(--accent); }
 .hero-cta:hover { transform: translateX(-50%) translateY(-3px); }
 
 .slogan-block {
-  background: transparent;
-  padding: 40px 6% 20px;
+  background: #f1eee6;
+  padding: 32px 6%;
   text-align: center;
 }
 .slogan-block p {
-  max-width: 640px;
+  max-width: 1100px;
   margin: 0 auto;
   color: var(--text);
-  font-size: 1.3rem;
-  line-height: 1.5;
+  font-size: 1.05rem;
+  line-height: 1.6;
   font-weight: 700;
   font-style: italic;
-  letter-spacing: 0.3px;
+  letter-spacing: 1px;
+  white-space: normal;
 }
-.slogan-block p::before,
-.slogan-block p::after {
-  color: var(--accent);
-  font-weight: 900;
+
+@media (min-width: 900px) {
+  .slogan-block p { white-space: nowrap; font-size: 1.15rem; }
 }
 h2 { text-align: center; font-size: 2rem; letter-spacing: 2px; margin: 0 0 40px; }
 .collection { padding: 70px 6%; }
