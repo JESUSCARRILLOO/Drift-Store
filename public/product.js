@@ -7,14 +7,19 @@ if (!product) {
   detailEl.innerHTML = `<p style="text-align:center;padding:80px 6%;">Producto no encontrado.</p>`;
 } else {
   let selectedSize = null;
+  let currentIndex = 0;
   const gallery = product.images && product.images.length ? product.images : [product.image];
 
   detailEl.innerHTML = `
     <div class="detail-grid">
       <div class="detail-gallery">
-        <img id="main-detail-img" class="detail-img" src="${gallery[0]}" alt="${product.name}" />
+        <div class="main-img-wrap">
+          <button id="prev-img" class="arrow-btn">‹</button>
+          <img id="main-detail-img" class="detail-img" src="${gallery[0]}" alt="${product.name}" />
+          <button id="next-img" class="arrow-btn">›</button>
+        </div>
         <div class="thumb-row">
-          ${gallery.map((img, i) => `<img class="thumb ${i === 0 ? 'selected' : ''}" src="${img}" data-src="${img}" alt="${product.name} vista ${i + 1}" />`).join("")}
+          ${gallery.map((img, i) => `<img class="thumb ${i === 0 ? 'selected' : ''}" src="${img}" data-index="${i}" alt="${product.name} vista ${i + 1}" />`).join("")}
         </div>
       </div>
       <div class="detail-info">
@@ -37,13 +42,20 @@ if (!product) {
   `;
 
   const mainImg = document.getElementById("main-detail-img");
-  document.querySelectorAll(".thumb").forEach(thumb => {
-    thumb.addEventListener("click", () => {
-      mainImg.src = thumb.dataset.src;
-      document.querySelectorAll(".thumb").forEach(t => t.classList.remove("selected"));
-      thumb.classList.add("selected");
-    });
+  const thumbs = document.querySelectorAll(".thumb");
+
+  function showImage(index) {
+    currentIndex = (index + gallery.length) % gallery.length;
+    mainImg.src = gallery[currentIndex];
+    thumbs.forEach(t => t.classList.remove("selected"));
+    thumbs[currentIndex].classList.add("selected");
+  }
+
+  thumbs.forEach(thumb => {
+    thumb.addEventListener("click", () => showImage(Number(thumb.dataset.index)));
   });
+  document.getElementById("prev-img").addEventListener("click", () => showImage(currentIndex - 1));
+  document.getElementById("next-img").addEventListener("click", () => showImage(currentIndex + 1));
 
   const sizeButtons = document.querySelectorAll(".size-btn");
   const addBtn = document.getElementById("add-detail-btn");
