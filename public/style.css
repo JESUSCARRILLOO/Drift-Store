@@ -40,22 +40,50 @@ nav a:hover { color: var(--accent); }
 }
 .search-input::placeholder { color: var(--muted); }
 
-.hero-banner { position: relative; width: 100%; }
-.banner-img { width: 100%; display: block; max-height: 520px; object-fit: cover; }
+.hero-banner {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+.banner-img {
+  display: block;
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+}
 .hero-cta {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-  background: #ff5a1f; color: #fff; font-weight: 800; letter-spacing: 1px;
-  padding: 16px 40px; border-radius: 30px; text-decoration: none; font-size: 1.05rem;
-  box-shadow: 0 6px 20px rgba(255,90,31,0.4); transition: transform 0.15s ease;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff5a1f;
+  color: #fff !important;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 16px 40px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1.05rem;
+  box-shadow: 0 6px 20px rgba(255,90,31,0.4);
+  transition: transform 0.15s ease;
+  z-index: 5;
+  display: inline-block;
 }
 .hero-cta:hover { transform: translateX(-50%) translateY(-3px); }
 
 .slogan-block {
-  background: var(--accent); padding: 60px 6%; text-align: center;
+  background: var(--accent);
+  padding: 60px 6%;
+  text-align: center;
 }
 .slogan-block p {
-  max-width: 700px; margin: 0 auto; color: #fff; font-style: italic;
-  font-size: 1.6rem; line-height: 1.5; font-weight: 600;
+  max-width: 700px;
+  margin: 0 auto;
+  color: #fff;
+  font-style: italic;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  font-weight: 600;
 }
 
 h2 { text-align: center; font-size: 2rem; letter-spacing: 2px; margin: 0 0 40px; }
@@ -203,7 +231,7 @@ h2 { text-align: center; font-size: 2rem; letter-spacing: 2px; margin: 0 0 40px;
 
 @media (max-width: 700px) {
   .search-input { display: none; }
-  .banner-img { max-height: 320px; }
+  .banner-img { height: 300px; }
   .hero-cta { padding: 12px 28px; font-size: 0.9rem; bottom: 20px; }
   .slogan-block p { font-size: 1.2rem; }
   .cart-panel { width: 100%; right: -100%; }
