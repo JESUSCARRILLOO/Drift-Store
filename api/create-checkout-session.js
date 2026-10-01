@@ -3,14 +3,14 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 const PRODUCTS = [
 { id: 1, name: "Nike Dunk Low Retro Hombre",  price: 175.00 },
-  { id: 2, name: "Nike Air Max Fire",      price: 190.00 },
-  { id: 3, name: "Asics Gel 1130",         price: 160.00 },
-  { id: 4, name: "Vans Upland",            price: 130.00 },
-  { id: 5, name: "Puma Suede",             price: 110.00 },
-  { id: 6, name: "Converse Chuck Taylor",  price: 85.00  },
-  { id: 7, name: "Tenis adidas Superstar", price: 95.00  },
-  { id: 8, name: "Dunk Low Retro",         price: 145.00 },
-  { id: 9, name: "Vans Old Skool",         price: 120.00 },
+  { id: 2, name: "Nike Air Max Fire Hombre",      price: 190.00 },
+  { id: 3, name: "Asics Gel 1130 Mujer",         price: 160.00 },
+  { id: 4, name: "Vans Upland Mujer",            price: 130.00 },
+  { id: 5, name: "Puma Suede Classic Mujer",             price: 110.00 },
+  { id: 6, name: "Converse Chuck Taylor All Star Hi Mujer",  price: 85.00  },
+  { id: 7, name: "Adidas Superstar Hombre", price: 95.00  },
+  { id: 8, name: "Nike Air Force One Hombre",         price: 145.00 },
+  { id: 9, name: "Vans Old Skool Hombre",         price: 120.00 },
 ];
 
 module.exports = async (req, res) => {
