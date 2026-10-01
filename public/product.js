@@ -7,9 +7,16 @@ if (!product) {
   detailEl.innerHTML = `<p style="text-align:center;padding:80px 6%;">Producto no encontrado.</p>`;
 } else {
   let selectedSize = null;
+  const gallery = product.images && product.images.length ? product.images : [product.image];
+
   detailEl.innerHTML = `
     <div class="detail-grid">
-      <img class="detail-img" src="${product.image}" alt="${product.name}" />
+      <div class="detail-gallery">
+        <img id="main-detail-img" class="detail-img" src="${gallery[0]}" alt="${product.name}" />
+        <div class="thumb-row">
+          ${gallery.map((img, i) => `<img class="thumb ${i === 0 ? 'selected' : ''}" src="${img}" data-src="${img}" alt="${product.name} vista ${i + 1}" />`).join("")}
+        </div>
+      </div>
       <div class="detail-info">
         <span class="brand-tag">${product.brand}</span>
         <h1>${product.name}</h1>
@@ -28,6 +35,15 @@ if (!product) {
       </div>
     </div>
   `;
+
+  const mainImg = document.getElementById("main-detail-img");
+  document.querySelectorAll(".thumb").forEach(thumb => {
+    thumb.addEventListener("click", () => {
+      mainImg.src = thumb.dataset.src;
+      document.querySelectorAll(".thumb").forEach(t => t.classList.remove("selected"));
+      thumb.classList.add("selected");
+    });
+  });
 
   const sizeButtons = document.querySelectorAll(".size-btn");
   const addBtn = document.getElementById("add-detail-btn");
