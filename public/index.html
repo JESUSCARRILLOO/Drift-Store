@@ -3,72 +3,104 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DRIFT — Streetwear Urbano</title>
+<meta name="theme-color" content="#F5F3EE" />
+<title>DRIFT — Sneakers y cultura urbana</title>
 <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="home-page">
 
 <header class="topbar">
-  <div class="logo">DRIFT</div>
-  <nav>
-    <a href="#colecciones" data-filter-type="all">Colección</a>
-    <a href="#colecciones" data-filter-type="category" data-filter-value="hombre">Hombre</a>
-    <a href="#colecciones" data-filter-type="category" data-filter-value="mujer">Mujer</a>
-    <a href="#marcas">Marcas</a>
-    <a href="#colecciones" data-filter-type="sale">Ofertas</a>
+  <a class="logo" href="index.html" aria-label="DRIFT, inicio">DRIFT<span class="logo-mark" aria-hidden="true">.</span></a>
+  <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+    <span class="menu-toggle-label">Menú</span>
+    <span class="menu-toggle-icon" aria-hidden="true"><span></span><span></span></span>
+  </button>
+  <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
+    <a href="index.html" aria-current="page">Inicio</a>
+    <a href="catalog.html">Catálogo</a>
+    <a href="new-arrivals.html">Novedades</a>
+    <a href="catalog.html?category=hombre">Hombre</a>
+    <a href="catalog.html?category=mujer">Mujer</a>
+    <a href="brands.html">Marcas</a>
+    <a href="catalog.html?filter=sale">Ofertas</a>
   </nav>
   <div class="topbar-actions">
-    <input id="search-input" type="text" class="search-input" placeholder="Buscar..." />
-    <button id="account-btn" class="cart-btn">👤 <span id="account-label">Cuenta</span></button>
-    <button id="fav-filter-btn" class="heart-btn" title="Ver mis favoritos">🤍</button>
-    <button id="cart-toggle" class="cart-btn">🛒 <span id="cart-count">0</span></button>
+    <label class="search-wrap">
+      <span class="visually-hidden">Buscar productos</span>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+      <input id="search-input" type="search" class="search-input" placeholder="Buscar sneakers" />
+    </label>
+    <button id="account-btn" class="icon-button account-button" type="button" aria-label="Abrir cuenta">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M4.8 21a7.2 7.2 0 0 1 14.4 0"></path></svg>
+      <span id="account-label">Cuenta</span>
+    </button>
+    <button id="fav-filter-btn" class="icon-button" type="button" aria-label="Ver mis favoritos" title="Ver mis favoritos">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.1-8.8 11-8.8 11s-8.8-5.9-8.8-11a4.7 4.7 0 0 1 8.8-2.3 4.7 4.7 0 0 1 8.8 2.3Z"></path></svg>
+    </button>
+    <button id="cart-toggle" class="icon-button cart-trigger" type="button" aria-label="Abrir carrito">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+      <span id="cart-count" class="cart-count" aria-live="polite">0</span>
+    </button>
   </div>
 </header>
 
-<section class="hero-banner">
-  <img src="images/banner-coleccion-2026.png" alt="Colección 2026 Streetwear" class="banner-img" />
-  <a href="#colecciones" class="hero-cta">Comprar ahora</a>
-</section>
+<main>
+  <section class="hero-banner" aria-labelledby="hero-title">
+    <img src="images/banner-coleccion-2026.png" alt="Colección 2026 de sneakers y streetwear" class="banner-img" />
+    <div class="hero-content">
+      <p class="eyebrow hero-eyebrow">DRIFT / TIJUANA, B.C.</p>
+      <h1 id="hero-title">Camina<br />a tu manera.</h1>
+      <p class="hero-description">Encuentra los pares que marcan tendencia y descubre nuevos estilos.</p>
+      <a href="catalog.html" class="hero-cta">Explorar colección <span aria-hidden="true">↘</span></a>
+    </div>
+    <span class="hero-index" aria-hidden="true">01 / 26</span>
+  </section>
 
-<section class="slogan-block">
-  <p>"Encuentra los pares que marcan tendencia, descubre nuevos estilos y lleva a la calle sneakers que realmente representan quién eres."</p>
-</section>
+  <section id="marcas" class="brands" aria-labelledby="brands-title">
+    <div class="section-kicker"><span class="eyebrow">SELECCIÓN ACTUAL</span><h2 id="brands-title">Marcas</h2></div>
+    <div class="brands-row" aria-label="Filtrar por marca">
+      <button type="button" data-filter-type="brand" data-filter-value="Nike">Nike</button>
+      <button type="button" data-filter-type="brand" data-filter-value="adidas">adidas</button>
+      <button type="button" data-filter-type="brand" data-filter-value="Puma">Puma</button>
+      <button type="button" data-filter-type="brand" data-filter-value="Asics">Asics</button>
+      <button type="button" data-filter-type="brand" data-filter-value="Vans">Vans</button>
+      <button type="button" data-filter-type="brand" data-filter-value="Converse">Converse</button>
+    </div>
+  </section>
 
-<section id="marcas" class="brands">
-  <h2>Marcas destacadas</h2>
-  <div class="brands-row">
-    <span data-filter-type="brand" data-filter-value="Nike">NIKE</span>
-    <span data-filter-type="brand" data-filter-value="adidas">ADIDAS</span>
-    <span data-filter-type="brand" data-filter-value="Puma">PUMA</span>
-    <span data-filter-type="brand" data-filter-value="Asics">ASICS</span>
-    <span data-filter-type="brand" data-filter-value="Vans">VANS</span>
-    <span data-filter-type="brand" data-filter-value="Converse">CONVERSE</span>
-  </div>
-</section>
+  <section id="colecciones" class="collection" aria-labelledby="collection-title">
+    <div class="collection-heading">
+      <div><p class="eyebrow">SNEAKERS / DRIFT</p><h2 id="collection-title">La colección</h2></div>
+      <p class="collection-note">Selección para moverte<br />por tu propio camino.</p>
+    </div>
+    <button id="filter-info" class="filter-info hidden" type="button"></button>
+    <div id="product-grid" class="grid" aria-live="polite"></div>
+  </section>
 
-<section id="colecciones" class="collection">
-  <h2>Colección</h2>
-  <p id="filter-info" class="filter-info hidden"></p>
-  <div id="product-grid" class="grid"></div>
-</section>
+  <section class="slogan-block">
+    <p>“Lleva a la calle sneakers que realmente representan quién eres.”</p>
+    <a href="catalog.html">Encuentra tu próximo par <span aria-hidden="true">↗</span></a>
+  </section>
 
-<section id="beneficios" class="benefits">
-  <div class="benefit"><span>🚚</span><h5>Envío gratis</h5><p>A todo el país en compras mayores a $999</p></div>
-  <div class="benefit"><span>↩️</span><h5>30 días de devolución</h5><p>Cambios y devoluciones sin complicaciones</p></div>
-  <div class="benefit"><span>💳</span><h5>Hasta 12 MSI</h5><p>Con tarjetas de crédito participantes</p></div>
-</section>
+  <section id="beneficios" class="benefits" aria-label="Información de compra">
+    <div class="benefit"><span class="benefit-index">01</span><div><h3>Envío gratis</h3><p>A todo el país en compras mayores a $999</p></div></div>
+    <div class="benefit"><span class="benefit-index">02</span><div><h3>30 días de devolución</h3><p>Cambios y devoluciones sin complicaciones</p></div></div>
+    <div class="benefit"><span class="benefit-index">03</span><div><h3>Hasta 12 MSI</h3><p>Con tarjetas de crédito participantes</p></div></div>
+  </section>
+</main>
 
 <footer class="footer">
-  <div class="logo">DRIFT</div>
+  <a class="logo" href="index.html" aria-label="DRIFT, inicio">DRIFT<span class="logo-mark" aria-hidden="true">.</span></a>
   <p>Tijuana, Baja California</p>
+  <a href="catalog.html">Volver a la colección ↑</a>
 </footer>
 
-<aside id="cart-panel" class="cart-panel">
+<aside id="cart-panel" class="cart-panel" aria-label="Tu carrito">
   <div class="cart-header">
     <h3>Tu carrito</h3>
     <div class="cart-header-actions">
-      <button id="cart-clear" title="Vaciar carrito">🗑</button>
-      <button id="cart-close">✕</button>
+      <button id="cart-clear" type="button" class="cart-clear-button" title="Vaciar carrito" aria-label="Vaciar carrito"><span aria-hidden="true">×</span><span>Vaciar carrito</span></button>
+      <button id="cart-close" type="button" aria-label="Cerrar carrito">×</button>
     </div>
   </div>
   <div id="cart-items"></div>
@@ -81,7 +113,7 @@
 <div id="cart-overlay" class="cart-overlay"></div>
 
 <div id="auth-modal" class="auth-modal">
-  <button id="auth-close">✕</button>
+  <button id="auth-close" type="button" aria-label="Cerrar cuenta">×</button>
   <div class="auth-tabs">
     <button class="tab-btn active" data-tab="login">Iniciar sesión</button>
     <button class="tab-btn" data-tab="register">Registrarse</button>
