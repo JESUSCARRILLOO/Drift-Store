@@ -24,7 +24,8 @@ function setActiveNav() {
   let activeHref = "index.html";
 
   if (page === "catalog.html") {
-    if (params.get("brand")) activeHref = "brands.html";
+    if (sectionCategory) activeHref = `catalog.html?category=${sectionCategory}`;
+    else if (params.get("brand")) activeHref = "brands.html";
     else if (params.get("filter") === "sale") activeHref = "catalog.html?filter=sale";
     else if (params.get("category") === "hombre") activeHref = "catalog.html?category=hombre";
     else if (params.get("category") === "mujer") activeHref = "catalog.html?category=mujer";
@@ -228,7 +229,10 @@ function applyFilter(type, value) {
 function populateBrands() {
   if (!brandFilter) return;
   while (brandFilter.options.length > 1) brandFilter.remove(1);
-  const brands = [...new Set(productSource.map(product => product.brand).filter(Boolean))]
+  const sectionProducts = sectionCategory
+    ? productSource.filter(product => product.category === sectionCategory)
+    : productSource;
+  const brands = [...new Set(sectionProducts.map(product => product.brand).filter(Boolean))]
     .sort((a, b) => a.localeCompare(b, "es"));
   brands.forEach(brand => {
     const option = document.createElement("option");
@@ -236,6 +240,9 @@ function populateBrands() {
     option.textContent = brand;
     brandFilter.appendChild(option);
   });
+  const selectedBrand = activeFilters.brand.toLocaleLowerCase("es");
+  activeFilters.brand = brands.find(brand => brand.toLocaleLowerCase("es") === selectedBrand) ?? "";
+  brandFilter.value = activeFilters.brand;
 }
 
 function populateBrandDirectory() {
@@ -392,10 +399,6 @@ function setCatalogProducts(products) {
   productSource = products;
   populateBrands();
   populateBrandDirectory();
-  if (brandFilter && ![...brandFilter.options].some(option => option.value === activeFilters.brand)) {
-    activeFilters.brand = "";
-    brandFilter.value = "";
-  }
   updateCatalog();
 }
 
@@ -429,6 +432,16 @@ if (availabilityFilter) availabilityFilter.addEventListener("change", () => {
 if (sortSelect) sortSelect.addEventListener("change", updateCatalog);
 
 if (sectionCategory) {
+  const isMensSection = sectionCategory === "hombre";
+  const title = document.getElementById("catalog-title");
+  const cover = title.closest(".catalog-intro");
+  const media = cover.querySelector(".catalog-category-media");
+  const photo = media.querySelector(".catalog-category-photo");
+  title.textContent = isMensSection ? "Hombre" : "Mujer";
+  cover.dataset.category = sectionCategory;
+  photo.src = isMensSection ? "images/drift-home-campaign-1.jpg" : "images/drift-home-campaign-2.jpg";
+  media.hidden = false;
+  document.title = `${title.textContent} - DRIFT Sneakers`;
   categoryFilter.closest(".filter-control").classList.add("hidden");
   categoryFilter.disabled = true;
   document.body.classList.add("catalog-category-page");
@@ -446,7 +459,6 @@ if (categoryFilter) categoryFilter.value = activeFilters.category;
 if (availabilityFilter) availabilityFilter.value = activeFilters.availability;
 populateBrands();
 populateBrandDirectory();
-if (brandFilter) brandFilter.value = activeFilters.brand;
 updateCatalog();
 
 if (grid) grid.addEventListener("click", e => {
