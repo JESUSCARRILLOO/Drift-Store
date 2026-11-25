@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pagar · DRIFT</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+  <header class="checkout-header"><a href="index.html" aria-label="DRIFT, inicio">DRIFT</a></header>
+  <main class="checkout">
+    <a class="checkout-back" href="catalog.html">← Volver al catálogo</a>
+    <h1>Pagar</h1>
+    <p id="checkout-empty" hidden>Tu carrito está vacío.</p>
+    <div class="checkout-grid" id="checkout-order" hidden>
+      <section class="checkout-card" aria-labelledby="checkout-summary">
+        <h2 id="checkout-summary">Resumen del pedido</h2>
+        <ul id="checkout-items"></ul>
+        <dl>
+          <div><dt>Subtotal</dt><dd id="checkout-subtotal"></dd></div>
+          <div><dt>Envío</dt><dd id="checkout-shipping"></dd></div>
+          <div class="checkout-total"><dt>Total</dt><dd id="checkout-total"></dd></div>
+        </dl>
+      </section>
+      <form class="checkout-card" id="checkout-form">
+        <fieldset>
+          <legend>Método de pago</legend>
+          <label class="checkout-option"><input type="radio" name="method" value="card" checked> <span>Tarjeta de crédito o débito<small>Stripe</small></span></label>
+          <label class="checkout-option"><input type="radio" name="method" value="mercadopago" disabled> <span>Mercado Pago<small>Próximamente</small></span></label>
+          <label class="checkout-option"><input type="radio" name="method" value="paypal" disabled> <span>PayPal<small>Próximamente</small></span></label>
+        </fieldset>
+        <button class="btn-primary" id="checkout-continue" type="submit">Continuar al pago</button>
+        <p id="checkout-status" role="status"></p>
+      </form>
+    </div>
+  </main>
+  <script src="products.js" defer></script>
+  <script src="cart-store.js" defer></script>
+  <script src="checkout.js" defer></script>
+</body>
+</html>

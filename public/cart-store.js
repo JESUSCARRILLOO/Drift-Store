@@ -38,5 +38,5 @@ function isFavorite(productId) {
 }
 
 function formatMXN(amount) {
-  return amount.toLocaleString("es-MX", { style: "currency", currency: "MXN" });
+  return `${amount.toLocaleString("es-MX", { style: "currency", currency: "MXN" })} MXN`;
 }

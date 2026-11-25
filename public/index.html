@@ -3,104 +3,317 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DRIFT — Streetwear Urbano</title>
+<meta name="theme-color" content="#F5F3EE" />
+<title>DRIFT — Sneakers y cultura urbana</title>
 <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="home-page">
+
+<div class="home-announcement"><span>Envío gratis a todo el país en compras mayores a $999</span><a href="catalog.html">Descubre la colección</a></div>
 
 <header class="topbar">
-  <div class="logo">DRIFT</div>
-  <nav>
-    <a href="#colecciones" data-filter-type="all">Colección</a>
-    <a href="#colecciones" data-filter-type="category" data-filter-value="hombre">Hombre</a>
-    <a href="#colecciones" data-filter-type="category" data-filter-value="mujer">Mujer</a>
-    <a href="#marcas">Marcas</a>
-    <a href="#colecciones" data-filter-type="sale">Ofertas</a>
+  <a class="logo" href="index.html" aria-label="DRIFT, inicio">DRIFT<span class="logo-mark" aria-hidden="true">.</span></a>
+  <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+    <span class="menu-toggle-label">Menú</span>
+    <span class="menu-toggle-icon" aria-hidden="true"><span></span><span></span></span>
+  </button>
+  <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
+    <a href="index.html" aria-current="page">Inicio</a>
+    <a href="catalog.html">Catálogo</a>
+    <a href="new-arrivals.html">Novedades</a>
+    <a href="catalog.html?category=hombre">Hombre</a>
+    <a href="catalog.html?category=mujer">Mujer</a>
+    <a href="brands.html">Marcas</a>
+    <a href="catalog.html?filter=sale">Ofertas</a>
   </nav>
   <div class="topbar-actions">
-    <input id="search-input" type="text" class="search-input" placeholder="Buscar..." />
-    <button id="account-btn" class="cart-btn">👤 <span id="account-label">Cuenta</span></button>
-    <button id="fav-filter-btn" class="heart-btn" title="Ver mis favoritos">🤍</button>
-    <button id="cart-toggle" class="cart-btn">🛒 <span id="cart-count">0</span></button>
+    <form class="search-wrap" action="catalog.html" method="get">
+      <span class="visually-hidden">Buscar productos</span>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+      <input id="search-input" name="q" type="search" class="search-input" placeholder="Buscar sneakers" />
+    </form>
+    <a id="fav-filter-btn" class="icon-button" href="catalog.html?filter=favorites" aria-label="Ver mis favoritos" title="Ver mis favoritos">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.1-8.8 11-8.8 11s-8.8-5.9-8.8-11a4.7 4.7 0 0 1 8.8-2.3 4.7 4.7 0 0 1 8.8 2.3Z"></path></svg>
+    </a>
+    <button id="cart-toggle" class="icon-button cart-trigger" type="button" aria-label="Abrir carrito">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+      <span id="cart-count" class="cart-count" aria-live="polite">0</span>
+    </button>
+    <button id="account-btn" class="icon-button account-button" type="button" aria-label="Abrir cuenta">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M4.8 21a7.2 7.2 0 0 1 14.4 0"></path></svg>
+      <span id="account-label">Cuenta</span>
+    </button>
   </div>
 </header>
 
-<section class="hero-banner">
-  <img src="images/banner-coleccion-2026.png" alt="Colección 2026 Streetwear" class="banner-img" />
-  <a href="#colecciones" class="hero-cta">Comprar ahora</a>
-</section>
+<main>
+  <section class="home-hero-carousel" id="home-hero" role="region" aria-roledescription="carrusel" aria-label="Campañas de marcas">
+    <div class="home-hero-slides">
+      <article class="hero-banner home-hero-slide home-hero-slide--nike is-active" data-hero-slide aria-labelledby="hero-title-1">
+        <img src="images/drift-brand-nike-campaign.png" alt="Campaña Nike con dos pares de tenis Air Force 1 en primer plano" class="banner-img" fetchpriority="high" />
+        <div class="hero-content"><p class="eyebrow hero-eyebrow">NIKE</p><h1 id="hero-title-1">A tu ritmo.</h1><p class="hero-description">Muévete con intención. Elige tus Nike y sal a conquistar la calle.</p><a href="catalog.html?brand=Nike" class="hero-cta">Explorar Nike</a></div>
+      </article>
+      <article class="hero-banner home-hero-slide home-hero-slide--adidas" data-hero-slide aria-labelledby="hero-title-2" hidden>
+        <img src="images/drift-brand-adidas-original.jpg" alt="Modelo con sneakers adidas Superstar en una campaña urbana" class="banner-img" loading="lazy" />
+        <div class="hero-content"><p class="eyebrow hero-eyebrow">ADIDAS</p><h2 id="hero-title-2">Clásicos que avanzan.</h2><p class="hero-description">Siluetas icónicas con actitud para acompañarte todos los días.</p><a href="catalog.html?brand=adidas" class="hero-cta">Explorar adidas</a></div>
+      </article>
+      <article class="hero-banner home-hero-slide home-hero-slide-right home-hero-slide--puma" data-hero-slide aria-labelledby="hero-title-3" hidden>
+        <img src="images/drift-brand-puma-original.jpg" alt="Rosé luce sneakers Puma Speedcat en una campaña de la marca" class="banner-img" loading="lazy" />
+        <div class="hero-content"><p class="eyebrow hero-eyebrow">PUMA</p><h2 id="hero-title-3">Velocidad con estilo.</h2><p class="hero-description">Lleva la energía de la pista a cada paso.</p><a href="catalog.html?brand=Puma" class="hero-cta">Explorar Puma</a></div>
+      </article>
+      <article class="hero-banner home-hero-slide home-hero-slide--asics" data-hero-slide aria-labelledby="hero-title-4" hidden>
+        <img src="images/drift-brand-asics-original.png" alt="Detalle de sneakers ASICS durante una zancada sobre una pasarela urbana" class="banner-img" loading="lazy" />
+        <div class="hero-content"><p class="eyebrow hero-eyebrow">ASICS</p><h2 id="hero-title-4">Corre hacia lo que sigue.</h2><p class="hero-description">Ligereza, movimiento y confort para encontrar tu propio ritmo.</p><a href="catalog.html?brand=Asics" class="hero-cta">Explorar ASICS</a></div>
+      </article>
+      <article class="hero-banner home-hero-slide home-hero-slide-right home-hero-slide--vans" data-hero-slide aria-labelledby="hero-title-5" hidden>
+        <img src="images/drift-brand-vans-original.jpg" alt="Detalle de sneakers Vans mientras una persona monta su patineta" class="banner-img" loading="lazy" />
+        <div class="hero-content"><p class="eyebrow hero-eyebrow">VANS</p><h2 id="hero-title-5">Fuera de lo común.</h2><p class="hero-description">Actitud skate para dejar tu huella dondequiera que vayas.</p><a href="catalog.html?brand=Vans" class="hero-cta">Explorar Vans</a></div>
+      </article>
+      <article class="hero-banner home-hero-slide home-hero-slide--converse" data-hero-slide aria-labelledby="hero-title-6" hidden>
+        <img src="images/drift-brand-converse-original.jpg" alt="Modelo con sneakers blancos Converse de caña alta" class="banner-img" loading="lazy" />
+        <div class="hero-content"><p class="eyebrow hero-eyebrow">CONVERSE</p><h2 id="hero-title-6">Un clásico, tu manera.</h2><p class="hero-description">Chuck Taylor y siluetas atemporales que siempre encuentran su lugar.</p><a href="catalog.html?brand=Converse" class="hero-cta">Explorar Converse</a></div>
+      </article>
+    </div>
+    <div class="home-hero-controls">
+      <div class="home-hero-dots" aria-label="Elegir marca">
+        <button type="button" data-hero-to="0" aria-label="Mostrar Nike" aria-current="true"></button>
+        <button type="button" data-hero-to="1" aria-label="Mostrar adidas"></button>
+        <button type="button" data-hero-to="2" aria-label="Mostrar Puma"></button>
+        <button type="button" data-hero-to="3" aria-label="Mostrar ASICS"></button>
+        <button type="button" data-hero-to="4" aria-label="Mostrar Vans"></button>
+        <button type="button" data-hero-to="5" aria-label="Mostrar Converse"></button>
+      </div>
+      <div class="home-hero-pagination">
+        <button class="home-hero-arrow" type="button" data-hero-prev aria-label="Campaña anterior" title="Campaña anterior"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <span id="home-hero-status" aria-live="polite">1 / 6</span>
+        <button class="home-hero-arrow" type="button" data-hero-next aria-label="Campaña siguiente" title="Campaña siguiente"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></svg></button>
+      </div>
+    </div>
+  </section>
 
-<section class="slogan-block">
-  <p>"Encuentra los pares que marcan tendencia, descubre nuevos estilos y lleva a la calle sneakers que realmente representan quién eres."</p>
-</section>
+  <section class="home-category-section" aria-labelledby="home-category-title">
+    <div class="home-category-heading">
+      <div><h2 id="home-category-title">Encuentra tu próximo par</h2></div>
+      <p>Dos formas de llevar tu estilo.<br />Una sola dirección: la tuya.</p>
+    </div>
+    <div class="home-category-grid">
+      <a class="home-category-tile" href="catalog.html?category=hombre">
+        <img src="images/Nike-Dunk-Low-Retro-Hombre.jpg" alt="Nike Dunk Low Retro para hombre" loading="lazy" />
+        <span class="home-category-copy">
+          <strong>Hombre</strong>
+          <span class="home-category-link">Explorar</span>
+        </span>
+      </a>
+      <a class="home-category-tile" href="catalog.html?category=mujer">
+        <img src="images/Asics-Gel-1130-Mujer.jpg" alt="Asics Gel 1130 para mujer" loading="lazy" />
+        <span class="home-category-copy">
+          <strong>Mujer</strong>
+          <span class="home-category-link">Explorar</span>
+        </span>
+      </a>
+    </div>
+  </section>
 
-<section id="marcas" class="brands">
-  <h2>Marcas destacadas</h2>
-  <div class="brands-row">
-    <span data-filter-type="brand" data-filter-value="Nike">NIKE</span>
-    <span data-filter-type="brand" data-filter-value="adidas">ADIDAS</span>
-    <span data-filter-type="brand" data-filter-value="Puma">PUMA</span>
-    <span data-filter-type="brand" data-filter-value="Asics">ASICS</span>
-    <span data-filter-type="brand" data-filter-value="Vans">VANS</span>
-    <span data-filter-type="brand" data-filter-value="Converse">CONVERSE</span>
+  <section id="marcas" class="home-brand-section" aria-labelledby="brands-title">
+    <div class="home-brand-heading"><h2 id="brands-title">Cuatro marcas.<br />Tu propio camino.</h2><p>Explora estilos que se mueven contigo.</p></div>
+    <div class="home-brand-grid">
+      <a class="home-brand-card" href="catalog.html?brand=Nike"><img src="images/drift-brand-nike-blue-card.jpg" alt="Tenis Nike azul claro en primer plano y otro par al fondo" loading="lazy" /><span class="home-brand-card-copy"><strong>NIKE</strong><span>Muévete a tu ritmo</span><span class="home-brand-cta">Explorar colección</span></span></a>
+      <a class="home-brand-card" href="catalog.html?brand=adidas"><img src="images/drift-brand-adidas-original.jpg" alt="Modelo con sneakers adidas Superstar en una campaña urbana" loading="lazy" /><span class="home-brand-card-copy"><strong>ADIDAS</strong><span>Un clásico para cada día</span><span class="home-brand-cta">Explorar colección</span></span></a>
+      <a class="home-brand-card" href="catalog.html?brand=Puma"><img src="images/drift-brand-puma-original.jpg" alt="Rosé luce sneakers Puma Speedcat en una campaña de la marca" loading="lazy" /><span class="home-brand-card-copy"><strong>PUMA</strong><span>Actitud en cada paso</span><span class="home-brand-cta">Explorar colección</span></span></a>
+      <a class="home-brand-card" href="catalog.html?brand=Vans"><img src="images/drift-brand-vans-original.jpg" alt="Detalle de sneakers Vans mientras una persona monta su patineta" loading="lazy" /><span class="home-brand-card-copy"><strong>VANS</strong><span>Espíritu skate</span><span class="home-brand-cta">Explorar colección</span></span></a>
+    </div>
+  </section>
+
+  <section class="home-news-section" aria-labelledby="home-news-title">
+    <div class="home-news-heading"><div><h2 id="home-news-title">Novedades para cada día.</h2></div><a class="home-text-link" href="new-arrivals.html">Ver novedades</a></div>
+    <div class="home-news-grid">
+      <a class="home-news-card" href="product.html?id=3"><img src="images/Asics-Gel-1130-Mujer.jpg" alt="Asics Gel 1130" loading="lazy" /><span class="home-news-card-copy"><span>ASICS</span><strong>Gel 1130</strong><span class="home-news-link">Ver producto</span></span></a>
+      <a class="home-news-card" href="product.html?id=1"><img src="images/Nike-Dunk-Low-Retro-Hombre.jpg" alt="Nike Dunk Low Retro" loading="lazy" /><span class="home-news-card-copy"><span>NIKE</span><strong>Dunk Low Retro</strong><span class="home-news-link">Ver producto</span></span></a>
+      <a class="home-news-card" href="product.html?id=7"><img src="images/Adidas-Superstar-Hombre.jpg" alt="adidas Superstar" loading="lazy" /><span class="home-news-card-copy"><span>ADIDAS</span><strong>Superstar</strong><span class="home-news-link">Ver producto</span></span></a>
+    </div>
+  </section>
+
+  <section class="home-sale-feature" aria-labelledby="home-sale-title">
+    <div class="home-sale-image" id="home-sale-carousel" role="region" aria-roledescription="carrusel" aria-label="Tenis destacados">
+      <img src="images/Puma-Suede-Classic-Mujer.jpg" alt="Tenis Puma Suede Classic para mujer" class="home-sale-slide is-active" data-sale-slide aria-hidden="false" fetchpriority="high" />
+      <img src="images/Nike-Air-Max-Fire-Hombre.jpg" alt="Tenis Nike Air Max Fire para hombre" class="home-sale-slide" data-sale-slide aria-hidden="true" loading="lazy" hidden />
+      <img src="images/Adidas-Superstar-Hombre.jpg" alt="Tenis adidas Superstar para hombre" class="home-sale-slide" data-sale-slide aria-hidden="true" loading="lazy" hidden />
+      <img src="images/Nike-Dunk-Low-Retro-Hombre.jpg" alt="Tenis Nike Dunk Low Retro para hombre" class="home-sale-slide" data-sale-slide aria-hidden="true" loading="lazy" hidden />
+      <div class="home-sale-controls">
+        <div class="home-sale-dots" aria-label="Elegir tenis">
+          <button type="button" data-sale-to="0" aria-label="Mostrar Puma Suede" aria-current="true"></button>
+          <button type="button" data-sale-to="1" aria-label="Mostrar Nike Air Max"></button>
+          <button type="button" data-sale-to="2" aria-label="Mostrar adidas Superstar"></button>
+          <button type="button" data-sale-to="3" aria-label="Mostrar Nike Dunk Low"></button>
+        </div>
+        <div class="home-sale-pagination">
+          <button type="button" data-sale-prev aria-label="Tenis anterior" title="Tenis anterior"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"></path></svg></button>
+          <span id="home-sale-status" aria-live="polite">1 / 4</span>
+          <button type="button" data-sale-next aria-label="Tenis siguiente" title="Tenis siguiente"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="home-sale-copy"><h2 id="home-sale-title">Tu siguiente favorito te está esperando.</h2><p>Descubre pares seleccionados con precio especial.</p><a class="home-text-link" href="catalog.html?filter=sale">Explorar ofertas</a></div>
+  </section>
+
+  <section class="home-story" aria-labelledby="home-story-title">
+    <div class="home-story-copy"><h2 id="home-story-title">Más que sneakers.<br />Parte de tu camino.</h2><p>En DRIFT reunimos siluetas icónicas y nuevos esenciales para acompañar cada paso, a tu manera.</p><a class="home-text-link" href="brands.html">Conoce nuestras marcas</a></div>
+    <div class="home-story-panel"><img src="images/drift-street-campaign.png" alt="Dos personas caminando con sneakers en una calle urbana" loading="lazy" /></div>
+  </section>
+
+  <section class="slogan-block">
+    <p>“Lleva a la calle sneakers que realmente representan quién eres.”</p>
+    <a href="catalog.html">Encuentra tu próximo par</a>
+  </section>
+
+  <section id="beneficios" class="benefits" aria-label="Información de compra">
+    <div class="benefit"><div><h3>Envío gratis</h3><p>A todo el país en compras mayores a $999</p></div></div>
+    <div class="benefit"><div><h3>30 días de devolución</h3><p>Cambios y devoluciones sin complicaciones</p></div></div>
+    <div class="benefit"><div><h3>Hasta 12 MSI</h3><p>Con tarjetas de crédito participantes</p></div></div>
+  </section>
+</main>
+
+<footer class="footer site-footer">
+  <div class="site-footer-main">
+    <div class="site-footer-brand">
+      <a class="logo" href="index.html" aria-label="DRIFT, inicio">DRIFT<span class="logo-mark" aria-hidden="true">.</span></a>
+      <p>Sneakers para cada paso. Estilo urbano desde Tijuana, Baja California.</p>
+      <a class="site-footer-cta" href="catalog.html">Explorar catálogo</a>
+    </div>
+    <nav class="site-footer-column" aria-label="Explora DRIFT">
+      <h2>Explora</h2>
+      <a href="index.html">Inicio</a><a href="catalog.html">Catálogo</a><a href="new-arrivals.html">Novedades</a><a href="brands.html">Marcas</a><a href="catalog.html?filter=sale">Ofertas</a>
+    </nav>
+    <nav class="site-footer-column" aria-label="Ayuda e información">
+      <h2>Ayuda</h2>
+      <a href="informacion.html#envios">Envíos</a><a href="informacion.html#devoluciones">Devoluciones</a><a href="informacion.html#pagos">Pagos y seguridad</a><a href="informacion.html#contacto">Contacto</a>
+    </nav>
+    <nav class="site-footer-column" aria-label="Información legal">
+      <h2>Legal</h2>
+      <a href="informacion.html#privacidad">Aviso de privacidad</a><a href="informacion.html#terminos">Términos de compra</a>
+    </nav>
   </div>
-</section>
-
-<section id="colecciones" class="collection">
-  <h2>Colección</h2>
-  <p id="filter-info" class="filter-info hidden"></p>
-  <div id="product-grid" class="grid"></div>
-</section>
-
-<section id="beneficios" class="benefits">
-  <div class="benefit"><span>🚚</span><h5>Envío gratis</h5><p>A todo el país en compras mayores a $999</p></div>
-  <div class="benefit"><span>↩️</span><h5>30 días de devolución</h5><p>Cambios y devoluciones sin complicaciones</p></div>
-  <div class="benefit"><span>💳</span><h5>Hasta 12 MSI</h5><p>Con tarjetas de crédito participantes</p></div>
-</section>
-
-<footer class="footer">
-  <div class="logo">DRIFT</div>
-  <p>Tijuana, Baja California</p>
+  <div class="site-footer-bottom"><p>© DRIFT · Tijuana, Baja California</p><p>Precios en MXN · Envío gratis en compras mayores a $999</p></div>
 </footer>
 
-<aside id="cart-panel" class="cart-panel">
+<aside id="cart-panel" class="cart-panel" aria-label="Tu carrito">
   <div class="cart-header">
     <h3>Tu carrito</h3>
     <div class="cart-header-actions">
-      <button id="cart-clear" title="Vaciar carrito">🗑</button>
-      <button id="cart-close">✕</button>
+      <button id="cart-clear" class="icon-button" type="button" aria-label="Vaciar carrito" disabled><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M9 6V4h6v2M6 6l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M10 10v6m4-6v6"/></svg></button>
+      <button id="cart-close" type="button" aria-label="Cerrar carrito">&times;</button>
     </div>
   </div>
   <div id="cart-items"></div>
   <div class="cart-footer">
     <div class="cart-total">Total: <span id="cart-total">$0.00</span></div>
-    <button id="checkout-btn" class="btn-primary" disabled>Pagar con Stripe</button>
+    <button id="checkout-btn" class="btn-primary" disabled>Pagar</button>
     <p id="checkout-msg" class="checkout-msg"></p>
   </div>
 </aside>
 <div id="cart-overlay" class="cart-overlay"></div>
 
-<div id="auth-modal" class="auth-modal">
-  <button id="auth-close">✕</button>
+<template id="cart-row-template">
+  <div class="cart-item">
+    <img class="cart-item-img" />
+    <div class="cart-item-info">
+      <span data-cart-name></span>
+      <div class="qty-controls">
+        <button data-action="dec">−</button>
+        <span data-cart-quantity></span>
+        <button data-action="inc">+</button>
+      </div>
+    </div>
+    <span data-cart-subtotal></span>
+  </div>
+</template>
+<template id="cart-empty-template">
+  <p class="cart-empty">Tu carrito está vacío.</p>
+</template>
+
+<dialog id="auth-modal" class="auth-modal" aria-labelledby="auth-title">
+  <button id="auth-close" type="button" aria-label="Cerrar cuenta">×</button>
+  <h2 id="auth-title">Tu cuenta</h2>
   <div class="auth-tabs">
-    <button class="tab-btn active" data-tab="login">Iniciar sesión</button>
-    <button class="tab-btn" data-tab="register">Registrarse</button>
+    <button type="button" class="tab-btn active" data-tab="login" aria-pressed="true">Iniciar sesión</button>
+    <button type="button" class="tab-btn" data-tab="register" aria-pressed="false">Registrarse</button>
   </div>
   <form id="login-form" class="auth-form">
-    <input type="email" id="login-email" placeholder="Correo electrónico" required>
-    <input type="password" id="login-password" placeholder="Contraseña" required>
+    <label>Correo electrónico<input id="login-email" name="login-email" type="email" autocomplete="username" required autofocus></label>
+    <label>Contraseña<input id="login-password" name="login-password" type="password" autocomplete="current-password" required></label>
+    <p id="login-msg" class="auth-msg" role="status"></p>
     <button type="submit" class="btn-primary">Entrar</button>
-    <p id="login-msg" class="auth-msg"></p>
   </form>
   <form id="register-form" class="auth-form hidden">
-    <input type="text" id="register-name" placeholder="Nombre" required>
-    <input type="email" id="register-email" placeholder="Correo electrónico" required>
-    <input type="password" id="register-password" placeholder="Contraseña" required>
+    <fieldset>
+      <legend>Datos de la cuenta</legend>
+      <div class="auth-grid">
+        <label>Nombre(s)<input id="register-name" name="register-name" autocomplete="given-name" required></label>
+        <label>Apellido(s)<input id="register-last-name" name="register-last-name" autocomplete="family-name" required></label>
+        <label>Teléfono celular<input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="shipping tel" required aria-describedby="phone-hint">
+          <small id="phone-hint">Escribe 10 dígitos. Puedes incluir el prefijo +52.</small>
+        </label>
+        <label>Contraseña<input id="register-password" name="register-password" type="password" autocomplete="new-password" minlength="8" required placeholder="Mínimo 8 caracteres"></label>
+        <label class="auth-wide">Correo electrónico<input id="register-email" name="register-email" type="email" autocomplete="username" required></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Domicilio de envío en México</legend>
+      <div class="auth-grid">
+        <label class="auth-wide">Calle<input id="street" name="street" autocomplete="shipping address-line1" required></label>
+        <label>Número exterior<input id="exteriorNumber" name="exteriorNumber" required placeholder="Ej. 123, 123 A o S/N"></label>
+        <label>Número interior (opcional)<input id="interiorNumber" name="interiorNumber" autocomplete="shipping address-line2"></label>
+        <label>Colonia o asentamiento<input id="neighborhood" name="neighborhood" autocomplete="shipping address-level3" required></label>
+        <label>Código postal<input id="postalCode" name="postalCode" inputmode="numeric" autocomplete="shipping postal-code" pattern="[0-9]{5}" maxlength="5" required placeholder="5 dígitos"></label>
+        <label>Ciudad o localidad<input id="locality" name="locality" autocomplete="shipping address-level2" required></label>
+        <label>Municipio o alcaldía<input id="municipality" name="municipality" required></label>
+        <label class="auth-wide">Estado
+          <select name="state" autocomplete="shipping address-level1" required>
+            <option value="">Selecciona tu estado</option>
+            <option>Aguascalientes</option>
+            <option>Baja California</option>
+            <option>Baja California Sur</option>
+            <option>Campeche</option>
+            <option>Chiapas</option>
+            <option>Chihuahua</option>
+            <option>Ciudad de México</option>
+            <option>Coahuila</option>
+            <option>Colima</option>
+            <option>Durango</option>
+            <option>Estado de México</option>
+            <option>Guanajuato</option>
+            <option>Guerrero</option>
+            <option>Hidalgo</option>
+            <option>Jalisco</option>
+            <option>Michoacán</option>
+            <option>Morelos</option>
+            <option>Nayarit</option>
+            <option>Nuevo León</option>
+            <option>Oaxaca</option>
+            <option>Puebla</option>
+            <option>Querétaro</option>
+            <option>Quintana Roo</option>
+            <option>San Luis Potosí</option>
+            <option>Sinaloa</option>
+            <option>Sonora</option>
+            <option>Tabasco</option>
+            <option>Tamaulipas</option>
+            <option>Tlaxcala</option>
+            <option>Veracruz</option>
+            <option>Yucatán</option>
+            <option>Zacatecas</option>
+          </select>
+        </label>
+        <label class="auth-wide">Referencias de entrega (opcional)
+          <textarea name="references" rows="2" placeholder="Ej. Entre calles, color de fachada o indicaciones de acceso"></textarea>
+        </label>
+      </div>
+    </fieldset>
+    <p class="auth-note">Registro de prueba. Usa datos ficticios, ya que se guardan en este navegador.</p>
+    <p id="register-msg" class="auth-msg" role="status"></p>
     <button type="submit" class="btn-primary">Crear cuenta</button>
-    <p id="register-msg" class="auth-msg"></p>
   </form>
-</div>
-<div id="auth-overlay" class="cart-overlay"></div>
+</dialog>
 
 <script src="products.js"></script>
 <script src="cart-store.js"></script>
