@@ -3,6 +3,7 @@ const cartCountEl = document.getElementById("cart-count");
 const cartTotalEl = document.getElementById("cart-total");
 const checkoutBtn = document.getElementById("checkout-btn");
 const checkoutMsg = document.getElementById("checkout-msg");
+const cartClearBtn = document.getElementById("cart-clear");
 const cartPanel = document.getElementById("cart-panel");
 const cartOverlay = document.getElementById("cart-overlay");
 
@@ -12,10 +13,6 @@ function renderCart() {
   cartItemsEl.innerHTML = "";
   let total = 0;
   let count = 0;
-
-  if (ids.length === 0) {
-    cartItemsEl.innerHTML = `<p style="color:var(--muted);text-align:center;">Tu carrito está vacío.</p>`;
-  }
 
   ids.forEach(id => {
     const p = PRODUCTS.find(x => String(x.id) === id);
@@ -40,6 +37,11 @@ function renderCart() {
     cartItemsEl.appendChild(row);
   });
 
+  if (count === 0) {
+    cartItemsEl.innerHTML = `<p class="cart-empty">Tu carrito est&aacute; vac&iacute;o.</p>`;
+  }
+
+  cartClearBtn.disabled = count === 0;
   cartCountEl.textContent = count;
   cartTotalEl.textContent = formatMXN(total);
   checkoutBtn.disabled = count === 0;
@@ -52,7 +54,7 @@ cartItemsEl.addEventListener("click", e => {
   renderCart();
 });
 
-document.getElementById("cart-clear").addEventListener("click", () => {
+cartClearBtn.addEventListener("click", () => {
   if (confirm("¿Vaciar todo el carrito?")) {
     clearCart();
     renderCart();

@@ -9,6 +9,8 @@
 </head>
 <body class="catalog-page">
 
+<div class="home-announcement"><span>Envío gratis a todo el país en compras mayores a $999</span><a href="catalog.html">Descubre la colección</a></div>
+
 <header class="topbar">
   <a class="logo" href="index.html" aria-label="DRIFT, inicio">DRIFT<span class="logo-mark" aria-hidden="true">.</span></a>
   <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
@@ -17,7 +19,7 @@
   </button>
   <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
     <a href="index.html">Inicio</a>
-    <a href="catalog.html" aria-current="page">Catálogo</a>
+    <a href="catalog.html">Catálogo</a>
     <a href="new-arrivals.html">Novedades</a>
     <a href="catalog.html?category=hombre">Hombre</a>
     <a href="catalog.html?category=mujer">Mujer</a>
@@ -25,55 +27,51 @@
     <a href="catalog.html?filter=sale">Ofertas</a>
   </nav>
   <div class="topbar-actions">
-    <label class="search-wrap">
+    <form class="search-wrap" action="catalog.html" method="get">
       <span class="visually-hidden">Buscar productos</span>
       <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
-      <input id="search-input" type="search" class="search-input" placeholder="Buscar sneakers" />
-    </label>
-    <button id="account-btn" class="icon-button account-button" type="button" aria-label="Abrir cuenta">
-      <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M4.8 21a7.2 7.2 0 0 1 14.4 0"></path></svg>
-      <span id="account-label">Cuenta</span>
-    </button>
-    <button id="fav-filter-btn" class="icon-button" type="button" aria-label="Ver mis favoritos" title="Ver mis favoritos">
+      <input id="search-input" name="q" type="search" class="search-input" placeholder="Buscar sneakers" />
+    </form>
+    <a id="fav-filter-btn" class="icon-button" href="catalog.html?filter=favorites" aria-label="Ver mis favoritos" title="Ver mis favoritos">
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.1-8.8 11-8.8 11s-8.8-5.9-8.8-11a4.7 4.7 0 0 1 8.8-2.3 4.7 4.7 0 0 1 8.8 2.3Z"></path></svg>
-    </button>
+    </a>
     <button id="cart-toggle" class="icon-button cart-trigger" type="button" aria-label="Abrir carrito">
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
       <span id="cart-count" class="cart-count" aria-live="polite">0</span>
+    </button>
+    <button id="account-btn" class="icon-button account-button" type="button" aria-label="Abrir cuenta">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M4.8 21a7.2 7.2 0 0 1 14.4 0"></path></svg>
+      <span id="account-label">Cuenta</span>
     </button>
   </div>
 </header>
 
 <main>
-  <section class="catalog-intro" aria-labelledby="catalog-title">
-    <p class="eyebrow">DRIFT / SELECCIÓN DE SNEAKERS</p>
-    <h1 id="catalog-title">Catálogo</h1>
-    <p>Encuentra el par que va contigo.</p>
-  </section>
-
-  <section class="catalog-content" aria-label="Productos y filtros">
-    <div class="catalog-toolbar">
-      <div class="catalog-filters">
-        <label class="filter-control"><span>Categoría</span>
-          <select id="category-filter" aria-label="Filtrar por categoría">
-            <option value="">Todas</option>
-            <option value="hombre">Hombre</option>
-            <option value="mujer">Mujer</option>
-          </select>
-        </label>
-        <label class="filter-control"><span>Marca</span>
-          <select id="brand-filter" aria-label="Filtrar por marca">
-            <option value="">Todas</option>
-          </select>
-        </label>
-        <label class="filter-control"><span>Disponibilidad</span>
-          <select id="availability-filter" aria-label="Filtrar ofertas">
-            <option value="">Todos los productos</option>
-            <option value="sale">Ofertas</option>
-          </select>
-        </label>
-      </div>
-      <label class="filter-control sort-control"><span>Ordenar</span>
+  <section class="catalog-header" aria-labelledby="catalog-title">
+    <div class="catalog-intro">
+      <h1 id="catalog-title">Catálogo</h1>
+      <p>Encuentra el par que va contigo.</p>
+    </div>
+    <div class="catalog-toolbar" role="group" aria-label="Filtros y orden">
+      <label class="filter-control"><span>Categoría</span>
+        <select id="category-filter" aria-label="Filtrar por categoría">
+          <option value="">Todas</option>
+          <option value="hombre">Hombre</option>
+          <option value="mujer">Mujer</option>
+        </select>
+      </label>
+      <label class="filter-control"><span>Marca</span>
+        <select id="brand-filter" aria-label="Filtrar por marca">
+          <option value="">Todas</option>
+        </select>
+      </label>
+      <label class="filter-control"><span>Disponibilidad</span>
+        <select id="availability-filter" aria-label="Filtrar ofertas">
+          <option value="">Todos los productos</option>
+          <option value="sale">Ofertas</option>
+        </select>
+      </label>
+      <label class="filter-control"><span>Ordenar</span>
         <select id="sort-select" aria-label="Ordenar productos">
           <option value="featured">Recomendados</option>
           <option value="name-asc">Nombre: A–Z</option>
@@ -82,6 +80,8 @@
         </select>
       </label>
     </div>
+  </section>
+  <section class="catalog-content" aria-label="Productos">
     <div class="catalog-result-row">
       <p id="catalog-count" class="catalog-count" aria-live="polite"></p>
       <button id="filter-info" class="filter-info hidden" type="button">Limpiar búsqueda y filtros</button>
@@ -98,8 +98,8 @@
 
 <aside id="cart-panel" class="cart-panel" aria-label="Tu carrito">
   <div class="cart-header"><h3>Tu carrito</h3><div class="cart-header-actions">
-    <button id="cart-clear" type="button" class="cart-clear-button" title="Vaciar carrito" aria-label="Vaciar carrito"><span aria-hidden="true">×</span><span>Vaciar carrito</span></button>
-    <button id="cart-close" type="button" aria-label="Cerrar carrito">×</button>
+    <button id="cart-clear" class="icon-button" type="button" aria-label="Vaciar carrito" disabled><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M9 6V4h6v2M6 6l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M10 10v6m4-6v6"/></svg></button>
+    <button id="cart-close" type="button" aria-label="Cerrar carrito">&times;</button>
   </div></div>
   <div id="cart-items"></div>
   <div class="cart-footer">
@@ -109,28 +109,6 @@
   </div>
 </aside>
 <div id="cart-overlay" class="cart-overlay"></div>
-
-<div id="auth-modal" class="auth-modal">
-  <button id="auth-close" type="button" aria-label="Cerrar cuenta">×</button>
-  <div class="auth-tabs">
-    <button class="tab-btn active" data-tab="login">Iniciar sesión</button>
-    <button class="tab-btn" data-tab="register">Registrarse</button>
-  </div>
-  <form id="login-form" class="auth-form">
-    <input type="email" id="login-email" placeholder="Correo electrónico" required>
-    <input type="password" id="login-password" placeholder="Contraseña" required>
-    <button type="submit" class="btn-primary">Entrar</button>
-    <p id="login-msg" class="auth-msg"></p>
-  </form>
-  <form id="register-form" class="auth-form hidden">
-    <input type="text" id="register-name" placeholder="Nombre" required>
-    <input type="email" id="register-email" placeholder="Correo electrónico" required>
-    <input type="password" id="register-password" placeholder="Contraseña" required>
-    <button type="submit" class="btn-primary">Crear cuenta</button>
-    <p id="register-msg" class="auth-msg"></p>
-  </form>
-</div>
-<div id="auth-overlay" class="cart-overlay"></div>
 
 <script src="products.js"></script>
 <script src="cart-store.js"></script>

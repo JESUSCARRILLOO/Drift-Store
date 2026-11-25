@@ -7,7 +7,9 @@
 <title>Marcas — DRIFT Sneakers</title>
 <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="brands-page">
+
+<div class="home-announcement"><span>Envío gratis a todo el país en compras mayores a $999</span><a href="catalog.html">Descubre la colección</a></div>
 
 <header class="topbar">
   <a href="index.html" class="logo" aria-label="DRIFT, inicio">DRIFT<span class="logo-mark" aria-hidden="true">.</span></a>
@@ -25,32 +27,55 @@
     <a href="catalog.html?filter=sale">Ofertas</a>
   </nav>
   <div class="topbar-actions">
+    <form class="search-wrap" action="catalog.html" method="get">
+      <span class="visually-hidden">Buscar productos</span>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+      <input id="search-input" name="q" type="search" class="search-input" placeholder="Buscar sneakers" />
+    </form>
+    <a id="fav-filter-btn" class="icon-button" href="catalog.html?filter=favorites" aria-label="Ver mis favoritos" title="Ver mis favoritos">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.1-8.8 11-8.8 11s-8.8-5.9-8.8-11a4.7 4.7 0 0 1 8.8-2.3 4.7 4.7 0 0 1 8.8 2.3Z"></path></svg>
+    </a>
     <button id="cart-toggle" class="icon-button cart-trigger" type="button" aria-label="Abrir carrito">
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
       <span id="cart-count" class="cart-count" aria-live="polite">0</span>
+    </button>
+    <button id="account-btn" class="icon-button account-button" type="button" aria-label="Abrir cuenta">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M4.8 21a7.2 7.2 0 0 1 14.4 0"></path></svg>
+      <span id="account-label">Cuenta</span>
     </button>
   </div>
 </header>
 
 <main>
-  <section class="brands" aria-labelledby="brands-title">
-    <div class="section-kicker"><span class="eyebrow">DRIFT / DIRECTORIO</span><h2 id="brands-title">Marcas</h2></div>
-    <div id="brand-directory" class="brands-row" aria-label="Marcas disponibles"></div>
+  <section class="brands-intro" aria-labelledby="brands-title">
+    <div><h1 id="brands-title">Marcas con<br />estilo propio.</h1><p>Encuentra la que va contigo y explora sus modelos en DRIFT.</p></div>
+    <a href="catalog.html">Explorar catálogo</a>
+  </section>
+
+  <section class="brand-directory-section" aria-label="Explora por marca">
+    <div class="brand-directory-grid">
+      <a class="brand-directory-card" href="catalog.html?brand=Nike"><img src="images/drift-brand-nike-original.jpg" alt="Persona con sneakers Nike visibles en una pose urbana" loading="lazy" /><span class="brand-directory-copy"><strong>NIKE</strong><span>Muévete a tu ritmo</span><span class="brand-directory-link">Ver modelos</span></span></a>
+      <a class="brand-directory-card" href="catalog.html?brand=adidas"><img src="images/drift-brand-adidas-original.jpg" alt="Modelo con sneakers adidas Superstar en una campaña urbana" loading="lazy" /><span class="brand-directory-copy"><strong>ADIDAS</strong><span>Clásicos de todos los días</span><span class="brand-directory-link">Ver modelos</span></span></a>
+      <a class="brand-directory-card" href="catalog.html?brand=Asics"><img src="images/drift-brand-asics-original.png" alt="Detalle de sneakers ASICS durante una zancada sobre una pasarela urbana" loading="lazy" /><span class="brand-directory-copy"><strong>ASICS</strong><span>Encuentra tu ritmo</span><span class="brand-directory-link">Ver modelos</span></span></a>
+      <a class="brand-directory-card" href="catalog.html?brand=Puma"><img src="images/drift-brand-puma-original.jpg" alt="Rosé luce sneakers Puma Speedcat en una campaña de la marca" loading="lazy" /><span class="brand-directory-copy"><strong>PUMA</strong><span>Actitud en cada paso</span><span class="brand-directory-link">Ver modelos</span></span></a>
+      <a class="brand-directory-card" href="catalog.html?brand=Vans"><img src="images/drift-brand-vans-original.jpg" alt="Detalle de sneakers Vans mientras una persona monta su patineta" loading="lazy" /><span class="brand-directory-copy"><strong>VANS</strong><span>Espíritu skate</span><span class="brand-directory-link">Ver modelos</span></span></a>
+      <a class="brand-directory-card" href="catalog.html?brand=Converse"><img src="images/drift-brand-converse-original.jpg" alt="Modelo con sneakers blancos Converse de caña alta" loading="lazy" /><span class="brand-directory-copy"><strong>CONVERSE</strong><span>Un clásico en la calle</span><span class="brand-directory-link">Ver modelos</span></span></a>
+    </div>
   </section>
 </main>
 
 <footer class="footer">
   <a class="logo" href="index.html" aria-label="DRIFT, inicio">DRIFT<span class="logo-mark" aria-hidden="true">.</span></a>
   <p>Tijuana, Baja California</p>
-  <a href="catalog.html">Volver al catálogo ↑</a>
+  <a href="catalog.html">Volver al catálogo</a>
 </footer>
 
 <aside id="cart-panel" class="cart-panel" aria-label="Tu carrito">
   <div class="cart-header">
     <h3>Tu carrito</h3>
     <div class="cart-header-actions">
-      <button id="cart-clear" type="button" class="cart-clear-button" title="Vaciar carrito" aria-label="Vaciar carrito"><span aria-hidden="true">×</span><span>Vaciar carrito</span></button>
-      <button id="cart-close" type="button" aria-label="Cerrar carrito">×</button>
+      <button id="cart-clear" class="icon-button" type="button" aria-label="Vaciar carrito" disabled><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M9 6V4h6v2M6 6l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M10 10v6m4-6v6"/></svg></button>
+      <button id="cart-close" type="button" aria-label="Cerrar carrito">&times;</button>
     </div>
   </div>
   <div id="cart-items"></div>
@@ -66,5 +91,6 @@
 <script src="cart-store.js"></script>
 <script src="cart-ui.js"></script>
 <script src="script.js"></script>
+<script src="auth.js"></script>
 </body>
 </html>
