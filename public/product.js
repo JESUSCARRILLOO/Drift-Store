@@ -3,8 +3,23 @@ const productId = Number(params.get("id"));
 const product = PRODUCTS.find(p => p.id === productId);
 const detailEl = document.getElementById("product-detail");
 
+function copyDetailTemplate(id) {
+  return document.getElementById(id).content.cloneNode(true);
+}
+
+function fillDetailPrice(priceRow, item) {
+  priceRow.querySelector(".price").textContent = formatMXN(item.price);
+  const originalPrice = priceRow.querySelector(".original-price");
+  if (item.onSale && item.originalPrice) {
+    originalPrice.textContent = formatMXN(item.originalPrice);
+  } else {
+    originalPrice.previousSibling.remove();
+    originalPrice.remove();
+  }
+}
+
 if (!product) {
-  detailEl.innerHTML = `<h1 id="product-title" class="detail-empty">Producto no encontrado</h1>`;
+  detailEl.append(copyDetailTemplate("detail-empty-template"));
 } else {
   let selectedSize = null;
   let quantity = 1;
@@ -16,76 +31,56 @@ if (!product) {
     .sort((a, b) => relevance(b) - relevance(a) || priceDistance(a) - priceDistance(b))
     .slice(0, 4);
 
-  detailEl.innerHTML = `
-    <div class="detail-grid">
-      <div class="detail-gallery">
-        <div class="main-img-wrap">
-          <img id="main-detail-img" class="detail-img" src="${gallery[0]}" alt="${product.name}" />
-          ${gallery.length > 1 ? `
-            <div class="gallery-arrows">
-              <button id="prev-img" class="arrow-btn" type="button" aria-label="Foto anterior">‹</button>
-              <button id="next-img" class="arrow-btn" type="button" aria-label="Foto siguiente">›</button>
-            </div>
-          ` : ""}
-        </div>
-        ${gallery.length > 1 ? `
-          <div class="thumb-row" role="group" aria-label="Fotos del producto">
-            ${gallery.map((img, i) => `
-              <button class="thumb" type="button" data-index="${i}" aria-label="Ver foto ${i + 1}" aria-pressed="${i === 0}">
-                <img src="${img}" alt="" />
-              </button>
-            `).join("")}
-          </div>
-        ` : ""}
-      </div>
-      <div class="detail-info">
-        <span class="brand-tag">${product.brand}</span>
-        <h1 id="product-title">${product.name}</h1>
-        <div class="price-row">
-          ${product.onSale && product.originalPrice
-            ? `<span class="price">${formatMXN(product.price)}</span> <span class="original-price">${formatMXN(product.originalPrice)}</span>`
-            : `<span class="price">${formatMXN(product.price)}</span>`}
-        </div>
-        <p class="detail-desc">${product.description || ""}</p>
-        <p id="size-label" class="size-label">Selecciona tu talla (MX)</p>
-        <div id="size-options" class="size-options" role="group" aria-labelledby="size-label">
-          ${product.sizes.map(s => `<button class="size-btn" type="button" data-size="${s}" aria-pressed="false">${s}</button>`).join("")}
-        </div>
-        <p id="quantity-label" class="size-label">Cantidad de pares</p>
-        <div class="detail-purchase">
-          <div class="quantity-picker" role="group" aria-labelledby="quantity-label">
-            <button id="quantity-minus" type="button" aria-label="Quitar un par" disabled>−</button>
-            <output id="detail-quantity">1</output>
-            <button id="quantity-plus" type="button" aria-label="Sumar un par">+</button>
-          </div>
-          <button id="add-detail-btn" class="btn-primary" disabled>Añadir al carrito</button>
-        </div>
-        <p id="size-msg" class="checkout-msg" role="status"></p>
-      </div>
-    </div>
-    ${recommendations.length ? `
-      <section class="detail-recommendations" aria-labelledby="recommendations-title">
-        <h2 id="recommendations-title">También te puede gustar</h2>
-        <div class="detail-recommendation-grid">
-          ${recommendations.map(item => `
-            <a class="card-link detail-recommendation" href="product.html?id=${encodeURIComponent(item.id)}">
-              <img class="card-swatch" src="${item.image}" alt="" loading="lazy" />
-              <div class="card-body">
-                <span class="brand-tag">${item.brand}</span>
-                <h3>${item.name}</h3>
-                <div class="price-row">
-                  <span class="price">${formatMXN(item.price)}</span>
-                  ${item.onSale && item.originalPrice ? `<span class="original-price">${formatMXN(item.originalPrice)}</span>` : ""}
-                </div>
-              </div>
-            </a>
-          `).join("")}
-        </div>
-      </section>
-    ` : ""}
-  `;
+  const detail = copyDetailTemplate("detail-template");
+  const mainImg = detail.querySelector("#main-detail-img");
+  mainImg.src = gallery[0];
+  mainImg.alt = product.name;
 
-  const mainImg = document.getElementById("main-detail-img");
+  const thumbRow = detail.querySelector(".thumb-row");
+  if (gallery.length > 1) {
+    gallery.forEach((image, index) => {
+      const thumb = copyDetailTemplate("detail-thumb-template").firstElementChild;
+      thumb.dataset.index = index;
+      thumb.setAttribute("aria-label", `Ver foto ${index + 1}`);
+      thumb.setAttribute("aria-pressed", String(index === 0));
+      thumb.querySelector("img").src = image;
+      thumbRow.append(thumb);
+    });
+  } else {
+    detail.querySelector(".gallery-arrows").remove();
+    thumbRow.remove();
+  }
+
+  detail.querySelector(".brand-tag").textContent = product.brand;
+  detail.querySelector("#product-title").textContent = product.name;
+  detail.querySelector(".detail-desc").textContent = product.description || "";
+  fillDetailPrice(detail.querySelector(".price-row"), product);
+
+  const sizeOptions = detail.querySelector("#size-options");
+  product.sizes.forEach(size => {
+    const button = copyDetailTemplate("detail-size-template").firstElementChild;
+    button.dataset.size = size;
+    button.textContent = size;
+    sizeOptions.append(button);
+  });
+
+  const recommendationSection = detail.querySelector(".detail-recommendations");
+  if (recommendations.length) {
+    const recommendationGrid = recommendationSection.querySelector(".detail-recommendation-grid");
+    recommendations.forEach(item => {
+      const card = copyDetailTemplate("detail-recommendation-template").firstElementChild;
+      card.href = `product.html?id=${encodeURIComponent(item.id)}`;
+      card.querySelector(".card-swatch").src = item.image;
+      card.querySelector(".brand-tag").textContent = item.brand;
+      card.querySelector("h3").textContent = item.name;
+      fillDetailPrice(card.querySelector(".price-row"), item);
+      recommendationGrid.append(card);
+    });
+  } else {
+    recommendationSection.remove();
+  }
+
+  detailEl.append(detail);
   const thumbs = detailEl.querySelectorAll(".thumb");
 
   function showImage(index) {

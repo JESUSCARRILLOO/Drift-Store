@@ -49,10 +49,27 @@
   <section id="product-detail" aria-labelledby="product-title"></section>
 </main>
 
-<footer class="footer">
-  <a class="logo" href="index.html" aria-label="DRIFT, inicio">DRIFT<span class="logo-mark" aria-hidden="true">.</span></a>
-  <p>Tijuana, Baja California</p>
-  <a href="index.html">Volver al inicio <span aria-hidden="true">↑</span></a>
+<footer class="footer site-footer">
+  <div class="site-footer-main">
+    <div class="site-footer-brand">
+      <a class="logo" href="index.html" aria-label="DRIFT, inicio">DRIFT<span class="logo-mark" aria-hidden="true">.</span></a>
+      <p>Sneakers para cada paso. Estilo urbano desde Tijuana, Baja California.</p>
+      <a class="site-footer-cta" href="catalog.html">Explorar catálogo</a>
+    </div>
+    <nav class="site-footer-column" aria-label="Explora DRIFT">
+      <h2>Explora</h2>
+      <a href="index.html">Inicio</a><a href="catalog.html">Catálogo</a><a href="new-arrivals.html">Novedades</a><a href="brands.html">Marcas</a><a href="catalog.html?filter=sale">Ofertas</a>
+    </nav>
+    <nav class="site-footer-column" aria-label="Ayuda e información">
+      <h2>Ayuda</h2>
+      <a href="informacion.html#envios">Envíos</a><a href="informacion.html#devoluciones">Devoluciones</a><a href="informacion.html#pagos">Pagos y seguridad</a><a href="informacion.html#contacto">Contacto</a>
+    </nav>
+    <nav class="site-footer-column" aria-label="Información legal">
+      <h2>Legal</h2>
+      <a href="informacion.html#privacidad">Aviso de privacidad</a><a href="informacion.html#terminos">Términos de compra</a>
+    </nav>
+  </div>
+  <div class="site-footer-bottom"><p>© DRIFT · Tijuana, Baja California</p><p>Precios en MXN · Envío gratis en compras mayores a $999</p></div>
 </footer>
 
 <aside id="cart-panel" class="cart-panel">
@@ -66,11 +83,169 @@
   <div id="cart-items"></div>
   <div class="cart-footer">
     <div class="cart-total">Total: <span id="cart-total">$0.00</span></div>
-    <button id="checkout-btn" class="btn-primary" disabled>Pagar con Stripe</button>
+    <button id="checkout-btn" class="btn-primary" disabled>Pagar</button>
     <p id="checkout-msg" class="checkout-msg"></p>
   </div>
 </aside>
 <div id="cart-overlay" class="cart-overlay"></div>
+
+<template id="detail-empty-template">
+  <h1 id="product-title" class="detail-empty">Producto no encontrado</h1>
+</template>
+<template id="detail-template">
+  <div class="detail-grid">
+    <div class="detail-gallery">
+      <div class="main-img-wrap">
+        <img id="main-detail-img" class="detail-img" />
+        <div class="gallery-arrows">
+          <button id="prev-img" class="arrow-btn" type="button" aria-label="Foto anterior">‹</button>
+          <button id="next-img" class="arrow-btn" type="button" aria-label="Foto siguiente">›</button>
+        </div>
+      </div>
+      <div class="thumb-row" role="group" aria-label="Fotos del producto"></div>
+    </div>
+    <div class="detail-info">
+      <span class="brand-tag"></span>
+      <h1 id="product-title"></h1>
+      <div class="price-row"><span class="price"></span> <span class="original-price"></span></div>
+      <p class="detail-desc"></p>
+      <p id="size-label" class="size-label">Selecciona tu talla (MX)</p>
+      <div id="size-options" class="size-options" role="group" aria-labelledby="size-label"></div>
+      <p id="quantity-label" class="size-label">Cantidad de pares</p>
+      <div class="detail-purchase">
+        <div class="quantity-picker" role="group" aria-labelledby="quantity-label">
+          <button id="quantity-minus" type="button" aria-label="Quitar un par" disabled>−</button>
+          <output id="detail-quantity">1</output>
+          <button id="quantity-plus" type="button" aria-label="Sumar un par">+</button>
+        </div>
+        <button id="add-detail-btn" class="btn-primary" disabled>Añadir al carrito</button>
+      </div>
+      <p id="size-msg" class="checkout-msg" role="status"></p>
+    </div>
+  </div>
+  <section class="detail-recommendations" aria-labelledby="recommendations-title">
+    <h2 id="recommendations-title">También te puede gustar</h2>
+    <div class="detail-recommendation-grid"></div>
+  </section>
+</template>
+<template id="detail-thumb-template">
+  <button class="thumb" type="button"><img alt="" /></button>
+</template>
+<template id="detail-size-template">
+  <button class="size-btn" type="button" aria-pressed="false"></button>
+</template>
+<template id="detail-recommendation-template">
+  <a class="card-link detail-recommendation">
+    <img class="card-swatch" alt="" loading="lazy" />
+    <div class="card-body">
+      <span class="brand-tag"></span>
+      <h3></h3>
+      <div class="price-row"><span class="price"></span> <span class="original-price"></span></div>
+    </div>
+  </a>
+</template>
+
+<template id="cart-row-template">
+  <div class="cart-item">
+    <img class="cart-item-img" />
+    <div class="cart-item-info">
+      <span data-cart-name></span>
+      <div class="qty-controls">
+        <button data-action="dec">−</button>
+        <span data-cart-quantity></span>
+        <button data-action="inc">+</button>
+      </div>
+    </div>
+    <span data-cart-subtotal></span>
+  </div>
+</template>
+<template id="cart-empty-template">
+  <p class="cart-empty">Tu carrito está vacío.</p>
+</template>
+
+<dialog id="auth-modal" class="auth-modal" aria-labelledby="auth-title">
+  <button id="auth-close" type="button" aria-label="Cerrar cuenta">×</button>
+  <h2 id="auth-title">Tu cuenta</h2>
+  <div class="auth-tabs">
+    <button type="button" class="tab-btn active" data-tab="login" aria-pressed="true">Iniciar sesión</button>
+    <button type="button" class="tab-btn" data-tab="register" aria-pressed="false">Registrarse</button>
+  </div>
+  <form id="login-form" class="auth-form">
+    <label>Correo electrónico<input id="login-email" name="login-email" type="email" autocomplete="username" required autofocus></label>
+    <label>Contraseña<input id="login-password" name="login-password" type="password" autocomplete="current-password" required></label>
+    <p id="login-msg" class="auth-msg" role="status"></p>
+    <button type="submit" class="btn-primary">Entrar</button>
+  </form>
+  <form id="register-form" class="auth-form hidden">
+    <fieldset>
+      <legend>Datos de la cuenta</legend>
+      <div class="auth-grid">
+        <label>Nombre(s)<input id="register-name" name="register-name" autocomplete="given-name" required></label>
+        <label>Apellido(s)<input id="register-last-name" name="register-last-name" autocomplete="family-name" required></label>
+        <label>Teléfono celular<input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="shipping tel" required aria-describedby="phone-hint">
+          <small id="phone-hint">Escribe 10 dígitos. Puedes incluir el prefijo +52.</small>
+        </label>
+        <label>Contraseña<input id="register-password" name="register-password" type="password" autocomplete="new-password" minlength="8" required placeholder="Mínimo 8 caracteres"></label>
+        <label class="auth-wide">Correo electrónico<input id="register-email" name="register-email" type="email" autocomplete="username" required></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Domicilio de envío en México</legend>
+      <div class="auth-grid">
+        <label class="auth-wide">Calle<input id="street" name="street" autocomplete="shipping address-line1" required></label>
+        <label>Número exterior<input id="exteriorNumber" name="exteriorNumber" required placeholder="Ej. 123, 123 A o S/N"></label>
+        <label>Número interior (opcional)<input id="interiorNumber" name="interiorNumber" autocomplete="shipping address-line2"></label>
+        <label>Colonia o asentamiento<input id="neighborhood" name="neighborhood" autocomplete="shipping address-level3" required></label>
+        <label>Código postal<input id="postalCode" name="postalCode" inputmode="numeric" autocomplete="shipping postal-code" pattern="[0-9]{5}" maxlength="5" required placeholder="5 dígitos"></label>
+        <label>Ciudad o localidad<input id="locality" name="locality" autocomplete="shipping address-level2" required></label>
+        <label>Municipio o alcaldía<input id="municipality" name="municipality" required></label>
+        <label class="auth-wide">Estado
+          <select name="state" autocomplete="shipping address-level1" required>
+            <option value="">Selecciona tu estado</option>
+            <option>Aguascalientes</option>
+            <option>Baja California</option>
+            <option>Baja California Sur</option>
+            <option>Campeche</option>
+            <option>Chiapas</option>
+            <option>Chihuahua</option>
+            <option>Ciudad de México</option>
+            <option>Coahuila</option>
+            <option>Colima</option>
+            <option>Durango</option>
+            <option>Estado de México</option>
+            <option>Guanajuato</option>
+            <option>Guerrero</option>
+            <option>Hidalgo</option>
+            <option>Jalisco</option>
+            <option>Michoacán</option>
+            <option>Morelos</option>
+            <option>Nayarit</option>
+            <option>Nuevo León</option>
+            <option>Oaxaca</option>
+            <option>Puebla</option>
+            <option>Querétaro</option>
+            <option>Quintana Roo</option>
+            <option>San Luis Potosí</option>
+            <option>Sinaloa</option>
+            <option>Sonora</option>
+            <option>Tabasco</option>
+            <option>Tamaulipas</option>
+            <option>Tlaxcala</option>
+            <option>Veracruz</option>
+            <option>Yucatán</option>
+            <option>Zacatecas</option>
+          </select>
+        </label>
+        <label class="auth-wide">Referencias de entrega (opcional)
+          <textarea name="references" rows="2" placeholder="Ej. Entre calles, color de fachada o indicaciones de acceso"></textarea>
+        </label>
+      </div>
+    </fieldset>
+    <p class="auth-note">Registro de prueba. Usa datos ficticios, ya que se guardan en este navegador.</p>
+    <p id="register-msg" class="auth-msg" role="status"></p>
+    <button type="submit" class="btn-primary">Crear cuenta</button>
+  </form>
+</dialog>
 
 <script src="products.js"></script>
 <script src="cart-store.js"></script>

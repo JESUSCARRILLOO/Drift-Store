@@ -1,4 +1,5 @@
 const grid = document.getElementById("product-grid");
+const productCardTemplate = document.getElementById("product-card-template");
 const searchInput = document.getElementById("search-input");
 const filterInfo = document.getElementById("filter-info");
 const menuToggle = document.getElementById("menu-toggle");
@@ -8,12 +9,13 @@ const initialParams = new URLSearchParams(window.location.search);
 const initialCategory = initialParams.get("category");
 const sectionCategory = categoryFilter && ["hombre", "mujer"].includes(initialCategory) ? initialCategory : "";
 const brandFilter = document.getElementById("brand-filter");
+const sizeFilter = document.getElementById("size-filter");
 const availabilityFilter = document.getElementById("availability-filter");
 const sortSelect = document.getElementById("sort-select");
 const arrivalHero = document.querySelector(".arrival-hero");
 const catalogCount = document.getElementById("catalog-count");
 let productSource = typeof PRODUCTS !== "undefined" && Array.isArray(PRODUCTS) ? PRODUCTS : [];
-let activeFilters = { category: "", brand: "", availability: "", query: "" };
+let activeFilters = { category: "", brand: "", size: "", availability: "", query: "" };
 
 function setActiveNav() {
   if (!mainNav) return;
@@ -48,6 +50,7 @@ function syncCatalogUrl() {
   const params = new URLSearchParams();
   if (activeFilters.category) params.set("category", activeFilters.category);
   if (activeFilters.brand) params.set("brand", activeFilters.brand);
+  if (activeFilters.size) params.set("size", activeFilters.size);
   if (activeFilters.availability === "sale") params.set("filter", "sale");
   else if (activeFilters.favorites) params.set("filter", "favorites");
   if (activeFilters.query) params.set("q", activeFilters.query);
@@ -88,16 +91,9 @@ if (menuToggle && mainNav) {
   });
 }
 
-function priceHTML(p) {
-  if (p.onSale && p.originalPrice) {
-    return `<span class="price">${formatMXN(p.price)}</span> <span class="original-price">${formatMXN(p.originalPrice)}</span>`;
-  }
-  return `<span class="price">${formatMXN(p.price)}</span>`;
-}
-
 function renderProducts(list) {
   if (!grid) return;
-  grid.innerHTML = "";
+  grid.replaceChildren();
   if (list.length === 0) {
     const message = arrivalHero ? "Por ahora no hay nuevas incorporaciones." : activeFilters.query
       ? `No encontramos productos para “${activeFilters.query}”. Prueba con otro término o limpia los filtros.`
@@ -110,24 +106,32 @@ function renderProducts(list) {
   }
 
   list.forEach(p => {
-    const card = document.createElement("div");
+    const card = productCardTemplate.content.firstElementChild.cloneNode(true);
     const favorite = isFavorite(p.id);
-    card.className = "card";
-    card.innerHTML = `
-      <a href="product.html?id=${encodeURIComponent(p.id)}" class="card-link">
-        <img class="card-swatch" src="${p.image}" alt="${p.name}" />
-        ${p.onSale ? '<span class="sale-badge">Oferta</span>' : ''}
-        <div class="card-body">
-          <span class="brand-tag">${p.brand}</span>
-          <h4>${p.name}</h4>
-          <div class="price-row">${priceHTML(p)}</div>
-        </div>
-      </a>
-      <div class="card-actions">
-        <button class="fav-btn" type="button" data-id="${p.id}" aria-label="${favorite ? "Quitar de favoritos" : "Añadir a favoritos"}: ${p.name}" aria-pressed="${favorite}">${favorite ? "♥" : "♡"}</button>
-        <button class="add-btn" type="button" data-id="${p.id}">Añadir al carrito</button>
-      </div>
-    `;
+
+    card.querySelector(".card-link").href = `product.html?id=${encodeURIComponent(p.id)}`;
+    const image = card.querySelector(".card-swatch");
+    image.src = p.image;
+    image.alt = p.name;
+    if (!p.onSale) card.querySelector(".sale-badge").remove();
+
+    card.querySelector(".brand-tag").textContent = p.brand;
+    card.querySelector("h4").textContent = p.name;
+    card.querySelector(".price").textContent = formatMXN(p.price);
+    const originalPrice = card.querySelector(".original-price");
+    if (p.onSale && p.originalPrice) {
+      originalPrice.textContent = formatMXN(p.originalPrice);
+    } else {
+      originalPrice.previousSibling.remove();
+      originalPrice.remove();
+    }
+
+    const favoriteButton = card.querySelector(".fav-btn");
+    favoriteButton.dataset.id = p.id;
+    favoriteButton.setAttribute("aria-label", `${favorite ? "Quitar de favoritos" : "Añadir a favoritos"}: ${p.name}`);
+    favoriteButton.setAttribute("aria-pressed", String(favorite));
+    favoriteButton.textContent = favorite ? "♥" : "♡";
+    card.querySelector(".add-btn").dataset.id = p.id;
     grid.appendChild(card);
   });
 }
@@ -160,7 +164,12 @@ function renderArrivalFeature(product) {
 
   arrivalHero.querySelector("#arrival-feature-name").textContent = product.name;
   arrivalHero.querySelector("#arrival-feature-description").textContent = product.description || "";
-  arrivalHero.querySelector("#arrival-feature-price").innerHTML = priceHTML(product);
+  const priceRow = arrivalHero.querySelector("#arrival-feature-price");
+  priceRow.querySelector(".price").textContent = formatMXN(product.price);
+  const originalPrice = priceRow.querySelector(".original-price");
+  const hasOriginalPrice = Boolean(product.onSale && product.originalPrice);
+  originalPrice.textContent = hasOriginalPrice ? formatMXN(product.originalPrice) : "";
+  originalPrice.classList.toggle("hidden", !hasOriginalPrice);
   arrivalHero.querySelector(".arrival-cta").href = `product.html?id=${encodeURIComponent(product.id)}`;
 }
 
@@ -188,12 +197,13 @@ function updateCatalog() {
     const matchesCategory = !activeFilters.category || product.category === activeFilters.category;
     const matchesBrand = !activeFilters.brand || product.brand?.toLocaleLowerCase("es") === activeFilters.brand.toLocaleLowerCase("es");
     const matchesAvailability = !activeFilters.availability || Boolean(product.onSale);
-    return matchesQuery && matchesCategory && matchesBrand && matchesAvailability;
+    const matchesSize = !activeFilters.size || (Array.isArray(product.sizes) && product.sizes.some(size => String(size) === activeFilters.size));
+    return matchesQuery && matchesCategory && matchesBrand && matchesAvailability && matchesSize;
   });
 
   if (activeFilters.favorites) list = list.filter(product => isFavorite(product.id));
   const sortedProducts = sortProducts(list, sortSelect?.value || "featured");
-  const hasFilters = Boolean((activeFilters.category && !sectionCategory) || activeFilters.brand || activeFilters.availability || activeFilters.query || activeFilters.favorites);
+  const hasFilters = Boolean((activeFilters.category && !sectionCategory) || activeFilters.brand || activeFilters.size || activeFilters.availability || activeFilters.query || activeFilters.favorites);
   renderProducts(sortedProducts);
   if (catalogCount) catalogCount.textContent = `${sortedProducts.length} ${sortedProducts.length === 1 ? "producto" : "productos"}`;
   syncCatalogUrl();
@@ -206,9 +216,10 @@ function updateCatalog() {
 
 function applyFilter(type, value) {
   if (type === "all") {
-    activeFilters = { category: sectionCategory, brand: "", availability: "", query: "", favorites: false };
+    activeFilters = { category: sectionCategory, brand: "", size: "", availability: "", query: "", favorites: false };
     if (categoryFilter) categoryFilter.value = sectionCategory;
     if (brandFilter) brandFilter.value = "";
+    if (sizeFilter) sizeFilter.value = "";
     if (availabilityFilter) availabilityFilter.value = "";
     if (searchInput) searchInput.value = "";
   } else if (type === "category" && !sectionCategory) {
@@ -245,10 +256,29 @@ function populateBrands() {
   brandFilter.value = activeFilters.brand;
 }
 
+function populateSizes() {
+  if (!sizeFilter) return;
+  while (sizeFilter.options.length > 1) sizeFilter.remove(1);
+  const sizes = new Set();
+  for (const product of productSource) {
+    if (sectionCategory && product.category !== sectionCategory) continue;
+    if (!Array.isArray(product.sizes)) continue;
+    product.sizes.forEach(size => sizes.add(String(size)));
+  }
+  [...sizes].sort((a, b) => a.localeCompare(b, "es", { numeric: true })).forEach(size => {
+    const option = document.createElement("option");
+    option.value = size;
+    option.textContent = `${size} MX`;
+    sizeFilter.appendChild(option);
+  });
+  if (!sizes.has(activeFilters.size)) activeFilters.size = "";
+  sizeFilter.value = activeFilters.size;
+}
+
 function populateBrandDirectory() {
   const directory = document.getElementById("brand-directory");
   if (!directory) return;
-  directory.innerHTML = "";
+  directory.replaceChildren();
   const brands = [...new Set(productSource.map(product => product.brand).filter(Boolean))]
     .sort((a, b) => a.localeCompare(b, "es"));
   brands.forEach(brand => {
@@ -398,6 +428,7 @@ function setCatalogProducts(products) {
   if (!Array.isArray(products)) return;
   productSource = products;
   populateBrands();
+  populateSizes();
   populateBrandDirectory();
   updateCatalog();
 }
@@ -423,6 +454,10 @@ if (categoryFilter && !sectionCategory) categoryFilter.addEventListener("change"
 });
 if (brandFilter) brandFilter.addEventListener("change", () => {
   activeFilters.brand = brandFilter.value;
+  updateCatalog();
+});
+if (sizeFilter) sizeFilter.addEventListener("change", () => {
+  activeFilters.size = sizeFilter.value;
   updateCatalog();
 });
 if (availabilityFilter) availabilityFilter.addEventListener("change", () => {
@@ -451,6 +486,7 @@ if (sectionCategory) {
 setActiveNav();
 activeFilters.category = initialParams.get("category") || "";
 activeFilters.brand = initialParams.get("brand") || "";
+if (sizeFilter) activeFilters.size = initialParams.get("size") || "";
 activeFilters.query = initialParams.get("q") || "";
 if (initialParams.get("filter") === "sale") activeFilters.availability = "sale";
 if (initialParams.get("filter") === "favorites") activeFilters.favorites = true;
@@ -458,6 +494,7 @@ if (searchInput && !arrivalHero) searchInput.value = activeFilters.query;
 if (categoryFilter) categoryFilter.value = activeFilters.category;
 if (availabilityFilter) availabilityFilter.value = activeFilters.availability;
 populateBrands();
+populateSizes();
 populateBrandDirectory();
 updateCatalog();
 

@@ -1,17 +1,7 @@
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-const PRODUCTS = [
-{ id: 1, name: "Nike Dunk Low Retro Hombre",  price: 175.00 },
-  { id: 2, name: "Nike Air Max Fire Hombre",      price: 190.00 },
-  { id: 3, name: "Asics Gel 1130 Mujer",         price: 160.00 },
-  { id: 4, name: "Vans Upland Mujer",            price: 130.00 },
-  { id: 5, name: "Puma Suede Classic Mujer",             price: 110.00 },
-  { id: 6, name: "Converse Chuck Taylor All Star Hi Mujer",  price: 85.00  },
-  { id: 7, name: "Adidas Superstar Hombre", price: 95.00  },
-  { id: 8, name: "Nike Air Force One Hombre",         price: 145.00 },
-  { id: 9, name: "Vans Old Skool Hombre",         price: 120.00 },
-];
+const PRODUCTS = require("../public/products.js");
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") {
@@ -24,23 +14,24 @@ module.exports = async (req, res) => {
     }
     const line_items = items.map(({ id, qty }) => {
       const product = PRODUCTS.find(p => String(p.id) === String(id));
-      if (!product) throw new Error(`Producto desconocido: ${id}`);
+      if (!product || !Number.isSafeInteger(qty) || qty < 1) return null;
       return {
         price_data: {
           currency: "mxn",
           product_data: { name: product.name },
           unit_amount: Math.round(product.price * 100),
         },
-        quantity: Math.max(1, parseInt(qty) || 1),
+        quantity: qty,
       };
     });
+    if (line_items.includes(null)) return res.status(400).json({ error: "Carrito inválido" });
     const origin = req.headers.origin || `https://${req.headers.host}`;
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
       line_items,
       success_url: `${origin}/?success=true`,
-      cancel_url: `${origin}/?canceled=true`,
+      cancel_url: `${origin}/checkout.html?canceled=true`,
     });
     res.status(200).json({ url: session.url });
   } catch (err) {

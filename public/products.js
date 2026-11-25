@@ -240,3 +240,5 @@ const PRODUCTS = [
     description: "Un clásico de inspiración futbolera con puntera en T y detalles de gamuza para un look casual.",
     sizes: [22,23,24,25,26] },
 ];
+
+if (typeof module !== "undefined" && module.exports) module.exports = PRODUCTS;

@@ -873,9 +873,9 @@ a { color: inherit; text-decoration: none; }
 /* Directorio de marcas */
 .brands-page { background: #fff; }
 .brands-page .topbar { background: rgb(255 255 255 / 96%); }
-.brands-intro { display: flex; min-height: 300px; align-items: end; justify-content: space-between; gap: 28px; padding: 52px var(--page-gutter) 38px; }
-.brands-intro h1 { margin: 0; font-family: var(--display-font); font-size: clamp(3.6rem, 7vw, 6rem); font-weight: 400; letter-spacing: -.025em; line-height: .88; }
-.brands-intro p { max-width: 320px; margin: 0 0 5px; color: var(--muted); font-size: .88rem; line-height: 1.7; }
+.brands-intro { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: clamp(24px, 3vw, 44px) var(--page-gutter) 24px; }
+.brands-intro h1 { margin: 0; font-family: var(--display-font); font-size: clamp(2.65rem, 5.4vw, 5rem); font-weight: 400; letter-spacing: -.025em; line-height: 1.08; }
+.brands-intro p { margin: 10px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.6; }
 .brands-intro > a { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 0 17px; border-radius: 999px; background: var(--nav-active); color: #fff; font-size: .76rem; font-weight: 700; white-space: nowrap; }
 .brands-intro > a:hover { background: #393a34; }
 .brand-directory-section { padding: 0 var(--page-gutter) var(--space-5); }
@@ -890,12 +890,10 @@ a { color: inherit; text-decoration: none; }
 .brand-directory-link { margin-top: 15px; padding-bottom: 5px; border-bottom: 1px solid rgb(255 255 255 / 76%); font-size: .73rem; font-weight: 700; }
 .brand-directory-card:focus-visible { outline-color: #fff; outline-offset: -4px; }
 @media (max-width: 1000px) {
-  .brands-intro { min-height: 270px; }
   .brand-directory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 700px) {
-  .brands-intro { min-height: 0; align-items: flex-start; flex-direction: column; gap: 14px; padding-top: 44px; padding-bottom: 26px; }
-  .brands-intro h1 { font-size: clamp(3.25rem, 14vw, 4.8rem); }
+  .brands-intro { align-items: flex-start; flex-direction: column; gap: 14px; }
   .brands-intro p { max-width: 290px; }
   .brand-directory-section { padding-bottom: var(--space-4); }
   .brand-directory-grid { grid-template-columns: 1fr; gap: 13px; }
@@ -1051,6 +1049,10 @@ a { color: inherit; text-decoration: none; }
   transform: scale(1.12);
   transform-origin: center bottom;
 }
+.catalog-intro[data-category="hombre"] .catalog-category-photo {
+  object-position: 54% 58%;
+  transform: none;
+}
 .catalog-intro[data-category="mujer"] {
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   background: #eee8dc;
@@ -1068,7 +1070,7 @@ a { color: inherit; text-decoration: none; }
 .catalog-category-page .catalog-result-row { min-height: 40px; }
 .catalog-page .catalog-toolbar {
   display: grid;
-  grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(150px, 1.5fr) minmax(175px, 1.75fr);
+  grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(85px, .85fr) minmax(150px, 1.5fr) minmax(175px, 1.75fr);
   min-width: 0;
   gap: 12px clamp(16px, 1.8vw, 24px);
   padding: 14px 16px;
@@ -1078,7 +1080,7 @@ a { color: inherit; text-decoration: none; }
 }
 .catalog-page .filter-control { min-width: 0; align-items: stretch; }
 .catalog-category-page .catalog-toolbar {
-  grid-template-columns: minmax(100px, 1fr) minmax(150px, 1.5fr) minmax(175px, 1.75fr);
+  grid-template-columns: minmax(100px, 1fr) minmax(85px, .85fr) minmax(150px, 1.5fr) minmax(175px, 1.75fr);
   padding-block: 8px;
 }
 .catalog-page .filter-control > span { text-align: center; }
@@ -1148,7 +1150,7 @@ a { color: inherit; text-decoration: none; }
   border-top: 1px solid var(--border);
   background: var(--catalog-paper);
 }
-@media (max-width: 1050px) {
+@media (max-width: 1160px) {
   .catalog-header { flex-direction: column; align-items: stretch; }
 }
 @media (max-width: 700px) {
@@ -1163,5 +1165,64 @@ a { color: inherit; text-decoration: none; }
   }
   .catalog-category-photo { transform: none; }
   .catalog-intro[data-category="mujer"] .catalog-category-photo { object-position: 36% 82%; }
-  .catalog-category-page .catalog-toolbar .filter-control:last-child { grid-column: 1 / -1; }
+  .catalog-page:not(.catalog-category-page) .catalog-toolbar .filter-control:last-child { grid-column: 1 / -1; }
+}
+
+/* Pie completo compartido y página de información */
+.site-footer {
+  display: block;
+  padding: 0 var(--page-gutter);
+  background: #20211d;
+  color: #e9e7df;
+}
+.site-footer-main {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(130px, .75fr));
+  gap: clamp(24px, 4vw, 56px);
+  padding: 52px 0 44px;
+}
+.site-footer .logo { display: inline-block; margin-bottom: 14px; color: #fff; font-size: 2rem; }
+.site-footer .logo-mark { color: #aaa99e; }
+.site-footer-brand p { max-width: 270px; margin: 0; color: #c4c2b9; font-size: .82rem; line-height: 1.7; }
+.site-footer-cta { display: inline-block; margin-top: 20px; padding-bottom: 5px; border-bottom: 1px solid #aaa99e; color: #fff; font-size: .76rem; font-weight: 650; }
+.site-footer-column { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.site-footer-column h2 { margin: 6px 0 5px; color: #fff; font-size: .78rem; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+.site-footer-column a { color: #c4c2b9; font-size: .78rem; line-height: 1.4; text-underline-offset: 4px; }
+.site-footer-column a:hover, .site-footer-column a:focus-visible { color: #fff; text-decoration: underline; }
+.site-footer-bottom { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0 19px; border-top: 1px solid rgb(255 255 255 / 17%); }
+.site-footer-bottom p { margin: 0; color: #b8b6ad; font-size: .69rem; line-height: 1.5; }
+:is(.catalog-page, .product-page) .site-footer { border-top: 0; background: #20211d; color: #e9e7df; }
+.home-page .site-footer { min-height: 0; padding: 0 var(--page-gutter); border-top: 0; background: #20211d; color: #e9e7df; }
+.home-page .site-footer .logo,
+.home-page .site-footer .site-footer-column a,
+.home-page .site-footer .site-footer-bottom p { color: inherit; }
+.info-page { min-height: 100vh; background: #fff; color: var(--text); }
+.info-header { display: flex; min-height: 78px; align-items: center; justify-content: space-between; padding: 0 var(--page-gutter); border-bottom: 1px solid var(--border); }
+.info-header .logo { color: var(--text); font-size: 2rem; }
+.info-header .logo-mark { color: #8b8c84; }
+.info-header > a:last-child { font-size: .8rem; font-weight: 650; text-underline-offset: 4px; }
+.info-header > a:last-child:hover { text-decoration: underline; }
+.info-main { width: min(920px, calc(100% - var(--page-gutter) - var(--page-gutter))); min-height: 55vh; margin: 0 auto; padding: 68px 0 80px; }
+.info-intro { padding-bottom: 28px; }
+.info-intro h1 { margin: 0 0 12px; font-family: var(--display-font); font-size: clamp(3.2rem, 7vw, 5.4rem); font-weight: 400; letter-spacing: -.025em; line-height: .95; }
+.info-intro > p { max-width: 580px; margin: 0; color: var(--muted); font-size: .94rem; line-height: 1.7; }
+.info-demo-note { margin-bottom: 42px; padding: 18px 20px; background: #f4f3ef; color: #51524d; font-size: .82rem; line-height: 1.7; }
+.info-sections { border-top: 1px solid var(--border); }
+.info-section { padding: 25px 0 27px; border-bottom: 1px solid var(--border); scroll-margin-top: 24px; }
+.info-section h2 { margin: 0 0 9px; font-size: 1rem; font-weight: 700; }
+.info-section p { max-width: 700px; margin: 0 0 8px; color: var(--muted); font-size: .86rem; line-height: 1.75; }
+.info-section p:last-child { margin-bottom: 0; }
+@media (max-width: 760px) {
+  .site-footer-main { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 24px; padding: 40px 0 34px; }
+  .site-footer-brand { grid-column: 1 / -1; }
+  .site-footer-bottom { flex-direction: column; gap: 6px; }
+  .info-main { padding-top: 48px; padding-bottom: 58px; }
+}
+@media (max-width: 460px) {
+  .site-footer-main { gap: 30px 14px; }
+  .site-footer-column { gap: 10px; }
+  .site-footer-column a { font-size: .74rem; }
+  .info-header { min-height: 68px; }
+  .info-main { width: calc(100% - 40px); }
+  .info-intro h1 { font-size: clamp(2.8rem, 12vw, 4rem); }
 }
